@@ -83,7 +83,7 @@ export default function SentinelConsole() {
   const runtime = useSentinelRuntime();
   const { currentUser, experimentArm, setExperimentArm, simulateOfflineMode,
     setSimulateOfflineMode, offlineQueueItems, setOfflineQueueItems,
-    nanoDownloadPct, setNanoDownloadPct, remoteConfigSource, setRemoteConfigSource } = runtime;
+    nanoDownloadPct, setNanoDownloadPct, setRemoteConfigSource } = runtime;
 
   // Feature 4: SHA-256 Hash-Chained Black-Box Flight Recorder (Starts empty — no pre-seeded fake blocks)
   const [blackBoxChain, setBlackBoxChain] = useState<BlackBoxBlock[]>([]);
