@@ -16,12 +16,12 @@ export default function TubesAmbientBackground() {
     const init = async () => {
       try {
         // Load the same lightweight cursor-tubes build used by the reference.
-        const module = await import(
+        const tubesModule = await import(
           /* webpackIgnore: true */ 'https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js'
         );
         if (!mounted) return;
 
-        const TubesCursor = module.default;
+        const TubesCursor = tubesModule.default;
         const canvas = document.getElementById(
           'sentinel-tubes-background'
         ) as HTMLCanvasElement | null;
