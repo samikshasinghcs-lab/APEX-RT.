@@ -1013,23 +1013,11 @@ export default function SentinelConsole() {
         )}
       </main>
 
-      {/* Quiet Footer */}
-      <footer className="border-t border-slate-800 bg-[#0B0E17] px-6 py-4 mt-8">
-        <div className="max-w-[1400px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-cyan-400" />
-            <span>
-              QNX Sentinel Post-Mortem Forensics Workbench · 100% Firebase AI
-              Logic (gemini-2.5-flash-lite / gemini-2.5-flash)
-            </span>
-          </div>
-          <div className="flex items-center gap-3 font-mono">
-            <span>Firebase 5-Product Stack</span>
-            <span aria-hidden="true">·</span>
-            <span>QNX SDP 8.0 (/qnx-target/)</span>
-            <span aria-hidden="true">·</span>
-            <span>Apache-2.0 License</span>
-          </div>
+      <footer className="border-t border-slate-200 bg-white px-6 py-5 mt-10">
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-2 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+          <span className="font-semibold tracking-tight text-slate-700">QNX Sentinel</span>
+          <span>Engineering intelligence · Embedded diagnostics · Evidence integrity</span>
+          <span>© 2026 QNX Sentinel</span>
         </div>
       </footer>
       </div>
