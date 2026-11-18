@@ -19,6 +19,7 @@ import {
   Download,
 } from 'lucide-react';
 import { User } from 'firebase/auth';
+import { useSentinelRuntime } from '@/hooks/useSentinelRuntime';
 import {
   collection,
   doc,
