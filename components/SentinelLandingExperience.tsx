@@ -187,7 +187,7 @@ function UsbPortDemo({reduced}:{reduced:boolean}){
       <article className="sentinel-bento-card"><div className="sentinel-bento-head"><span>03 / VERSION REPLAY</span><span className="sentinel-chip">DIFF VIEW</span></div><h3>Version replay</h3><p>Inspect changes associated with a fault transition.</p><div className="sentinel-code-diff"><div><i>−</i><code>watchdog_timeout = 80</code></div><div className="added"><i>+</i><code>watchdog_timeout = 120</code></div><div className="modified"><i>~</i><code>retry_policy = adaptive</code></div><div><i> </i><code>capture_trace(signal)</code></div></div></article>
       </div>
     </section>
-    <UsbPortDemo reduced={reduced}/>\n    <section id="sentinel-faq" className="sentinel-band" data-sentinel-reveal>
+    <section id="sentinel-faq" className="sentinel-band" data-sentinel-reveal>
       <div className="sentinel-band-head"><div className="sentinel-eyebrow">06 · QUESTIONS</div><div className="sentinel-rule"/></div>
       <div className="sentinel-band-intro"><h2>Clarity at every<br/>layer of the system.</h2><p>What the workbench does, where it runs and how its evidence is handled.</p></div>
       <div className="sentinel-faq">
@@ -197,7 +197,7 @@ function UsbPortDemo({reduced}:{reduced:boolean}){
         <details><summary>How is evidence integrity handled?<b/></summary><p>Forensic events can be recorded in a SHA-256 hash-chained ledger and verified to detect changes to the recorded sequence.</p></details>
       </div>
     </section>
-    <section className="sentinel-close" data-sentinel-reveal><p className="sentinel-eyebrow">QNX SENTINEL · POST-MORTEM FORENSICS</p><h2>Make every signal<br/>part of the picture.</h2><div className="sentinel-actions"><a className="sentinel-button primary" href="#sentinel-workbench">ENTER THE WORKBENCH ↘</a><a className="sentinel-button" href="#sentinel-home">BACK TO TOP ↑</a></div></section>
+    <UsbPortDemo reduced={reduced}/>\n    <section className="sentinel-close" data-sentinel-reveal><p className="sentinel-eyebrow">QNX SENTINEL · POST-MORTEM FORENSICS</p><h2>Make every signal<br/>part of the picture.</h2><div className="sentinel-actions"><a className="sentinel-button primary" href="#sentinel-workbench">ENTER THE WORKBENCH ↘</a><a className="sentinel-button" href="#sentinel-home">BACK TO TOP ↑</a></div></section>
     <footer className="sentinel-footer"><span>QNX SENTINEL · HYBRID AI TELEMETRY & FORENSICS</span><span>QNX SDP 8.0 · FIREBASE AI · SHA-256</span><span>© 2026</span></footer>
     <div id="sentinel-workbench" className="sentinel-workbench-label"><span>05 · INTERACTIVE WORKBENCH</span><span>LIVE SYSTEM</span></div>
   </div>;
