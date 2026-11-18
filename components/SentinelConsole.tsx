@@ -632,7 +632,7 @@ export default function SentinelConsole() {
   const preferInCloudPct = 100 - preferOnDevicePct;
 
   return (
-    <div className="min-h-screen bg-[#07090E] text-slate-100 flex flex-col relative">
+    <div className="sentinel-console min-h-screen bg-[#07090E] text-slate-100 flex flex-col relative">
       {/* Layer 2: Fixed WebGL2 GLSL Telemetry Shader Canvas (z-0, pointer-events-none) */}
       <GpuTelemetryCanvasBridge
         ref={gpuBridgeRef}
