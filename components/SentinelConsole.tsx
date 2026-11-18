@@ -1055,11 +1055,12 @@ export default function SentinelConsole() {
         )}
       </main>
 
-      <footer className="border-t border-slate-200 bg-white px-6 py-5 mt-10">
+      <UsbBridge />
+      <footer className="sentinel-production-footer border-t px-6 py-5 mt-10">
         <div className="mx-auto flex max-w-[1400px] flex-col gap-2 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-          <span className="font-semibold tracking-tight text-slate-700">QNX Sentinel</span>
-          <span>Engineering intelligence · Embedded diagnostics · Evidence integrity</span>
-          <span>© 2026 QNX Sentinel</span>
+          <span className="font-semibold tracking-tight text-slate-100">QNX SENTINEL</span>
+          <span>ENGINEERING INTELLIGENCE · EMBEDDED DIAGNOSTICS · EVIDENCE INTEGRITY</span>
+          <span>© 2026 QNX SENTINEL</span>
         </div>
       </footer>
       </div>
