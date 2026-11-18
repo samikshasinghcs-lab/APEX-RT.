@@ -75,11 +75,14 @@ import MultimodalVisionInspector, {
 import MultilingualEvalPanel from './MultilingualEvalPanel';
 import BlackBoxRecorderPanel from './BlackBoxRecorderPanel';
 import QnxTargetViewer from './QnxTargetViewer';
+import TubesBackground from './TubesBackground';
+import { SubsystemGrid, UsbBridge, TravellingDebugCable } from './SentinelVisualLayers';
 
 export type WorkbenchView = 'triage' | 'vision' | 'ledger' | 'eval_qnx';
 
 export default function SentinelConsole() {
   const [activeView, setActiveView] = useState<WorkbenchView>('triage');
+  const [diagnosticsOpen, setDiagnosticsOpen] = useState(false);
 
   const runtime = useSentinelRuntime();
   const { currentUser, experimentArm, setExperimentArm, simulateOfflineMode,
@@ -450,13 +453,14 @@ export default function SentinelConsole() {
   const preferInCloudPct = 100 - preferOnDevicePct;
 
   return (
-    <div className="sentinel-console min-h-screen bg-[#07090E] text-slate-100 flex flex-col relative">
-      {/* Layer 2: Fixed WebGL2 GLSL Telemetry Shader Canvas (z-0, pointer-events-none) */}
+    <div className="sentinel-console min-h-screen bg-[#050507] text-slate-100 flex flex-col relative">
+      <TubesBackground />
+      <TravellingDebugCable />
 
       {/* Layer 3: Semantic DOM Workbench Layer (relative z-10) */}
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Top Bar Contract: 3 Zones separated by gap-8 */}
-        <header className="flex items-center justify-between gap-8 px-6 py-3.5 border-b border-slate-800 bg-[#0B0E17]">
+        <header className="sentinel-production-nav flex items-center justify-between gap-5 px-6 py-3.5">
           <a
             href="#top"
             onClick={(e) => {
