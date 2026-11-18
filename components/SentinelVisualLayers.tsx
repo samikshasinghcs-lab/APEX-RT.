@@ -80,6 +80,11 @@ export function UsbBridge() {
   const [connected, setConnected] = useState(false);
   const [progress, setProgress] = useState(0);
   useEffect(() => {
+    const connectFromCable = () => setConnected(true);
+    window.addEventListener('sentinel-usb-connect', connectFromCable);
+    return () => window.removeEventListener('sentinel-usb-connect', connectFromCable);
+  }, []);
+  useEffect(() => {
     if (!connected) { setProgress(0); return; }
     const timers = [setTimeout(() => setProgress(1), 350), setTimeout(() => setProgress(2), 850), setTimeout(() => setProgress(3), 1400)];
     return () => timers.forEach(clearTimeout);
@@ -129,7 +134,7 @@ export function TravellingDebugCable() {
     window.addEventListener('scroll', update, { passive: true }); update();
     return () => { cancelAnimationFrame(raf); window.removeEventListener('scroll', update); };
   }, []);
-  return <svg ref={ref} className="sentinel-travelling-cable" viewBox="0 0 180 42" aria-hidden="true">
+  return <svg ref={ref} className="sentinel-travelling-cable" viewBox="0 0 180 42" aria-hidden="true" onClick={() => window.dispatchEvent(new Event("sentinel-usb-connect"))} style={{ pointerEvents: "auto", cursor: "pointer" }}>
     <path d="M8 21 C35 3 60 39 88 21 S140 3 160 21" fill="none" stroke="#6366F1" strokeWidth="7" strokeLinecap="round"/>
     <path d="M8 21 C35 3 60 39 88 21 S140 3 160 21" fill="none" stroke="#52A8FF" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 5"/>
     <rect x="151" y="10" width="24" height="22" rx="3" fill="#B8C4D8" stroke="#52A8FF"/>
