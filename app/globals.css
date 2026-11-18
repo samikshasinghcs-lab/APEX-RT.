@@ -387,7 +387,7 @@ body{background:var(--qnx-void)!important;color:#f4f4f5!important;font-family:va
 html,body{background:#000!important;color:#fff!important}
 body{overflow-x:hidden}
 .sentinel-console{position:relative;isolation:isolate;background:transparent!important;color:#fff!important;min-height:100vh}
-.sentinel-observe-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom;z-index:0;pointer-events:none}
+
 .sentinel-tubes-layer{display:none!important}
 .sentinel-console>.relative.z-10{position:relative;z-index:2}
 .liquid-glass,.sentinel-production-nav,.sentinel-console .bg-slate-900,.sentinel-console .bg-slate-950,.sentinel-console .sentinel-trace-stream,.sentinel-console .sentinel-diagnostics-drawer,.sentinel-console .sentinel-port-panel,.sentinel-console .sentinel-usb-bridge,.sentinel-console .sentinel-subsystem,.sentinel-console .sentinel-register-grid>div,.sentinel-console .bg-slate-800{
@@ -472,3 +472,15 @@ body{overflow-x:hidden}
 .sentinel-port-panel.is-connected .sentinel-port-socket{transform:scale(1.08)}
 @media(max-width:760px){.sentinel-travelling-cable{width:150px!important;height:35px!important}.sentinel-cable-hint,.sentinel-cable-reset{left:12px;bottom:12px;font-size:8px}}
 @media(prefers-reduced-motion:reduce){.sentinel-port-panel:not(.is-connected) .sentinel-port-socket{animation:none}}
+
+
+/* Polished USB-C interaction cue */
+.sentinel-travelling-cable{width:190px!important;height:54px!important;overflow:visible;filter:drop-shadow(0 7px 12px rgba(0,0,0,.72));cursor:grab!important}
+.sentinel-travelling-cable:hover{filter:drop-shadow(0 0 12px rgba(255,255,255,.38)) drop-shadow(0 7px 12px rgba(0,0,0,.7))}
+.sentinel-travelling-cable.is-dragging{cursor:grabbing!important;filter:drop-shadow(0 0 16px rgba(255,255,255,.55)) drop-shadow(0 7px 12px rgba(0,0,0,.7))}
+.sentinel-cable-hint{display:flex;align-items:center;gap:10px;left:24px;bottom:22px;padding:12px 16px;border:1px solid rgba(255,255,255,.28);border-radius:16px;background:rgba(18,18,22,.9);backdrop-filter:blur(18px);box-shadow:0 12px 40px rgba(0,0,0,.35);font:600 10px/1.4 var(--font-mono),monospace;letter-spacing:.07em;color:#fff;pointer-events:none}
+.sentinel-cable-hint-icon{display:grid;place-items:center;width:26px;height:26px;flex:none;border-radius:50%;background:#fff;color:#000;font:700 17px/1 sans-serif;animation:cable-down-nudge 1.2s ease-in-out infinite}
+.sentinel-cable-hint-step{padding-left:10px;border-left:1px solid rgba(255,255,255,.25);color:#aaa;font-size:8px;white-space:nowrap}
+.sentinel-cable-hint.is-active{background:rgba(35,35,42,.96);border-color:rgba(255,255,255,.62)}
+@keyframes cable-down-nudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(3px)}}
+@media(max-width:760px){.sentinel-cable-hint{left:10px;right:10px;bottom:12px;justify-content:flex-start;padding:10px 11px;font-size:8px;gap:8px}.sentinel-cable-hint-step{margin-left:auto}.sentinel-travelling-cable{width:165px!important;height:47px!important}}
