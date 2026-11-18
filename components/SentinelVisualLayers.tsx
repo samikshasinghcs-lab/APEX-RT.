@@ -80,41 +80,64 @@ export function UsbBridge() {
   const [connected, setConnected] = useState(false);
   const [progress, setProgress] = useState(0);
   useEffect(() => {
-    const connectFromCable = () => { setProgress(0); setConnected(true); };
-    const disconnectFromCable = () => { setProgress(0); setConnected(false); };
-    window.addEventListener('sentinel-usb-connect', connectFromCable);
-    window.addEventListener('sentinel-usb-disconnect', disconnectFromCable);
-    return () => {
-      window.removeEventListener('sentinel-usb-connect', connectFromCable);
-      window.removeEventListener('sentinel-usb-disconnect', disconnectFromCable);
-    };
-  }, []);
-  useEffect(() => {
     if (!connected) return;
-    const timers = [setTimeout(() => setProgress(1), 350), setTimeout(() => setProgress(2), 850), setTimeout(() => setProgress(3), 1400)];
+    const timers = [
+      setTimeout(() => setProgress(1), 280),
+      setTimeout(() => setProgress(2), 720),
+      setTimeout(() => setProgress(3), 1150),
+    ];
     return () => timers.forEach(clearTimeout);
   }, [connected]);
+  const connect = () => { setProgress(0); setConnected((v) => !v); };
   return <section id="qnx-target-bridge" className="sentinel-usb-bridge">
-    <div className="sentinel-section-kicker">HARDWARE INTERFACE / 05</div>
-    <div className="sentinel-usb-layout">
-      <div><h2>QNX Neutrino<br/><span>Hardware Bridge</span></h2><p>Connect the diagnostic session to the target interface and inspect the Safe Torque Off watchdog channel.</p>
-        <button className="sentinel-square-button" type="button" onClick={() => { setProgress(0); setConnected(v => !v); }}>{connected ? 'Disconnect Target' : 'Plug Into Target Port'} <span>↗</span></button>
-      </div>
-      <div className={`sentinel-port-panel ${connected ? 'is-connected' : ''}`}>
-        <div className="sentinel-port-head"><span>TARGET PORT / USB-C</span><span>{connected ? 'LINK ESTABLISHED' : 'AWAITING CONNECTION'}</span></div>
-        <button className="sentinel-usb-connector" type="button" onClick={() => { setProgress(0); setConnected(v => !v); }} aria-label={connected ? 'Disconnect USB-C connector' : 'Connect USB-C connector'}>
-          <span className="sentinel-usb-tip" /><span className="sentinel-usb-cable" />
-        </button>
-        <div id="sentinel-usb-socket" className="sentinel-port-socket" aria-label="USB-C target socket"><span /></div>
-        <div className="sentinel-signal-trace"><i style={{ transform: `scaleX(${progress / 3})` }} /></div>
-        <div className="sentinel-register-grid">
-          <div><small>INTERFACE</small><strong>{connected ? 'USB-C / QNX' : 'STANDBY'}</strong></div>
-          <div><small>HANDSHAKE</small><strong>{progress >= 1 ? 'VERIFIED' : '—'}</strong></div>
-          <div><small>STO WATCHDOG</small><strong>{progress >= 2 ? '<50µs' : 'LOCKED'}</strong></div>
+    <div className="sentinel-section-kicker">HARDWARE INTERFACE / 05 · QNX NEUTRINO</div>
+    <div className="sentinel-dock-heading">
+      <h2>QNX Neutrino <span>Hardware Bridge</span></h2>
+      <p>Establish a secure target link and inspect the Safe Torque Off watchdog register.</p>
+    </div>
+    <div className={`sentinel-hardware-dock ${connected ? 'is-connected' : ''}`}>
+      <div className="sentinel-dock-status"><span>PORT / USB-C · /qnx-target/</span><strong>{connected ? 'LINK ESTABLISHED' : 'AWAITING CONNECTION'}</strong></div>
+      <svg className="sentinel-dock-illustration" viewBox="0 0 900 300" role="img" aria-label="USB-C connector aligned with QNX Neutrino hardware port">
+        <defs>
+          <linearGradient id="dock-metal" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#f7fbff"/><stop offset=".25" stopColor="#747f91"/><stop offset=".55" stopColor="#d8e0ed"/><stop offset="1" stopColor="#424a59"/></linearGradient>
+          <linearGradient id="dock-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#34394a"/><stop offset=".48" stopColor="#11141d"/><stop offset="1" stopColor="#05070d"/></linearGradient>
+          <filter id="dock-glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <g className="dock-circuit-traces" fill="none" strokeWidth="2">
+          <path d="M60 80H270L330 130H485M60 220H270L330 170H485" stroke="#6366F1" opacity=".75"/>
+          <path d="M840 80H690L635 130H540M840 220H690L635 170H540" stroke="#52A8FF" opacity=".7"/>
+          <path d="M100 150H280M620 150H800" stroke="#62C073" strokeDasharray="4 9"/>
+          <circle cx="60" cy="80" r="5" fill="#6366F1"/><circle cx="60" cy="220" r="5" fill="#52A8FF"/><circle cx="840" cy="80" r="5" fill="#52A8FF"/><circle cx="840" cy="220" r="5" fill="#6366F1"/>
+        </g>
+        <g className="dock-port">
+          <rect x="485" y="94" width="120" height="112" rx="18" fill="#080b13" stroke="#69758b" strokeWidth="3"/>
+          <rect x="508" y="126" width="76" height="48" rx="15" fill="#02040a" stroke="#aab5c8" strokeWidth="3"/>
+          <rect x="522" y="140" width="48" height="20" rx="8" fill="#1b2435"/>
+          <path d="M530 150h32" stroke="#6366F1" strokeWidth="3"/>
+          <text x="545" y="232" fill="#9da9bf" fontSize="11" textAnchor="middle" letterSpacing="2">TARGET PORT</text>
+        </g>
+        <g className="dock-plug" onClick={connect} role="button" aria-label={connected ? 'Disconnect hardware bridge' : 'Connect USB-C hardware bridge'} tabIndex={0}>
+          <path d="M40 150H190" stroke="#080a10" strokeWidth="34" strokeLinecap="round"/>
+          <path d="M40 143H190" stroke="#515b70" strokeWidth="25" strokeLinecap="round"/>
+          <path d="M40 137H190" stroke="#9ca8bd" strokeWidth="3" strokeLinecap="round" opacity=".65"/>
+          <rect x="168" y="105" width="210" height="90" rx="20" fill="url(#dock-body)" stroke="#818da2" strokeWidth="2"/>
+          <path d="M188 116h160" stroke="#cbd5e1" strokeOpacity=".2" strokeWidth="2"/>
+          <text x="270" y="155" fill="#dce5f3" fontSize="12" textAnchor="middle" letterSpacing="3">SENTINEL LINK</text>
+          <rect x="365" y="126" width="150" height="48" rx="13" fill="url(#dock-metal)" stroke="#fff" strokeWidth="2"/>
+          <rect x="480" y="135" width="44" height="30" rx="10" fill="#141a26" stroke="#d9e2f0" strokeWidth="2"/>
+          <rect x="488" y="142" width="29" height="16" rx="7" fill="#05070d" stroke="#9ba8bb"/>
+        </g>
+        <text x="270" y="220" fill="#818da2" fontSize="10" textAnchor="middle" letterSpacing="2">USB-C · ANODIZED ALLOY</text>
+      </svg>
+      <div className="sentinel-dock-controls">
+        <button type="button" className="sentinel-square-button" onClick={connect}>{connected ? 'DISCONNECT HARDWARE BRIDGE' : 'CONNECT HARDWARE BRIDGE'} <span>↗</span></button>
+        <div className="sentinel-dock-readout">
+          <div><small>HANDSHAKE</small><strong>{progress >= 1 ? 'VERIFIED' : connected ? 'NEGOTIATING' : 'STANDBY'}</strong></div>
+          <div><small>SAFE TORQUE OFF</small><strong>{progress >= 2 ? '<50µs' : 'LOCKED'}</strong></div>
           <div><small>REGISTER READ</small><strong>{progress >= 3 ? '0x00A7 / SAFE' : 'AWAITING LINK'}</strong></div>
         </div>
-        <p className="sentinel-bridge-note">Interactive target-link sequence · UI register demonstration</p>
       </div>
+      <div className="sentinel-dock-foot"><span>QNX NEUTRINO · /qnx-target/</span><span>{connected ? 'SIMULATED TARGET SESSION' : 'CLICK PLUG OR CONNECT BUTTON'}</span></div>
     </div>
   </section>;
 }
