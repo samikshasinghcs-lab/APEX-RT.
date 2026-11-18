@@ -75,7 +75,8 @@ import MultimodalVisionInspector, {
 import MultilingualEvalPanel from './MultilingualEvalPanel';
 import BlackBoxRecorderPanel from './BlackBoxRecorderPanel';
 import QnxTargetViewer from './QnxTargetViewer';
-import { SubsystemGrid, UsbBridge, TravellingDebugCable } from './SentinelVisualLayers';
+import { SubsystemGrid, UsbBridge } from './SentinelVisualLayers';
+import TubesBackground from './TubesBackground';
 
 export type WorkbenchView = 'triage' | 'vision' | 'ledger' | 'eval_qnx';
 
@@ -453,7 +454,7 @@ export default function SentinelConsole() {
 
   return (
     <div className="sentinel-console min-h-screen bg-[#050507] text-slate-100 flex flex-col relative">
-      <TravellingDebugCable />
+      <TubesBackground />
 
       {/* Layer 3: Semantic DOM Workbench Layer (relative z-10) */}
       <div className="relative z-10 flex flex-col min-h-screen">
@@ -568,10 +569,11 @@ export default function SentinelConsole() {
           <div className="sentinel-hero-scrim" />
           <div className="sentinel-production-hero-inner">
             <div className="sentinel-section-kicker">QNX NEUTRINO / EMBEDDED INTELLIGENCE SYSTEM</div>
-            <h1>See the shape of the <em>noise</em></h1>
-            <p>Every signal from your system — rendered as a diagnostic picture you can actually read.</p>
+            <h1>QNX <em>Sentinel</em></h1>
+            <p>Edge intelligence for real-time diagnostics, safety and system assurance.</p>
+            <div className="sentinel-hero-status"><span>● HYBRID ONLINE</span><span>● NANO PROMPT API: {routingDecision.nanoLanguageSupported ? 'YES' : 'NO'}</span><span>● EDGE ROUTE: {preferOnDevicePct}%</span></div>
             <div className="sentinel-hero-actions">
-              <button type="button" className="sentinel-square-button" onClick={() => document.getElementById('router-workbench')?.scrollIntoView({behavior:'smooth'})}>OPEN DIAGNOSTIC ROUTER <span>↓</span></button>
+              <button type="button" className="sentinel-square-button" onClick={handleExecuteTriage} disabled={isTriaging}>EXECUTE TRIAGE <span>↗</span></button>
               <button type="button" className="sentinel-outline-button" onClick={() => switchWorkbenchView('ledger')}>VIEW EVIDENCE LEDGER <span>↗</span></button>
             </div>
           </div>
