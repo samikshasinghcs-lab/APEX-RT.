@@ -585,6 +585,17 @@ export default function SentinelConsole() {
           id="router-workbench"
           className="flex-1 max-w-[1400px] w-full mx-auto px-6 py-6 space-y-6"
         >
+        {activeView === 'triage' && (
+          <section className="sentinel-trace-stream" aria-label="Diagnostic trace stream">
+            <div className="sentinel-trace-heading"><span>LIVE TRACE / {routingDecision.detectedLocale.toUpperCase()}</span><span>{consensusResult.status}</span></div>
+            <div className="sentinel-trace-grid">
+              <div><small>SPAN / 01</small><strong>PPS INGEST</strong><i style={{width:'88%'}} /><em>START · 00.0ms</em></div>
+              <div><small>SPAN / 02</small><strong>PII AIRLOCK</strong><i style={{width:'64%'}} /><em>DURATION · {routingDecision.piiResult.redactionCount} REDACTIONS</em></div>
+              <div><small>SPAN / 03</small><strong>HYBRID ROUTE</strong><i style={{width:'72%'}} /><em>{routingDecision.routeTarget}</em></div>
+              <div><small>SPAN / 04</small><strong>CONSENSUS AUDIT</strong><i style={{width:consensusResult.status === 'NOT_RUN_YET' ? '12%' : '94%'}} /><em>{consensusResult.status}</em></div>
+            </div>
+          </section>
+        )}
         {/* View 1: Post-Mortem Log Triage & Consensus Audit */}
         {activeView === 'triage' && (
           <section
