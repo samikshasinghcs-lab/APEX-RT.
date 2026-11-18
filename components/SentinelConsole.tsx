@@ -454,7 +454,7 @@ export default function SentinelConsole() {
 
   return (
     <div className="sentinel-console min-h-screen bg-[#050507] text-slate-100 flex flex-col relative">
-      <TubesBackground />
+      <video className="sentinel-observe-video" src="https://designerstephen.github.io/public-assets/videos/observe-hero.mp4" muted autoPlay loop playsInline preload="auto" aria-hidden="true" />
       <TravellingDebugCable />
 
       {/* Layer 3: Semantic DOM Workbench Layer (relative z-10) */}
@@ -469,7 +469,8 @@ export default function SentinelConsole() {
             }}
             className="text-lg font-bold tracking-tight text-slate-100 whitespace-nowrap shrink-0"
           >
-            QNX Sentinel
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="w-6 h-6"><path d="M4.21 16.5 A9 9 0 0 1 16.5 4.21" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M16.5 4.21 A9 9 0 0 1 19.79 16.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeDasharray="2.4 2.3"/><path d="M19.79 16.5 A9 9 0 0 1 4.21 16.5" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeDasharray="0.01 4.7"/><circle cx="12" cy="12" r="2.5" fill="currentColor"/></svg>
+            <span>QNX Sentinel</span>
           </a>
 
           <div className="sentinel-nav-status">
@@ -569,8 +570,8 @@ export default function SentinelConsole() {
           <div className="sentinel-hero-scrim" />
           <div className="sentinel-production-hero-inner">
             <div className="sentinel-section-kicker">QNX NEUTRINO / EMBEDDED INTELLIGENCE SYSTEM</div>
-            <h1>Intelligence<br/><span>after impact.</span></h1>
-            <p>Multilingual crash-dump forensics, privacy-first inference routing, and verifiable evidence for safety-critical systems.</p>
+            <h1>See the shape of the <em>noise</em></h1>
+            <p>Every signal from your system — rendered as a diagnostic picture you can actually read.</p>
             <div className="sentinel-hero-actions">
               <button type="button" className="sentinel-square-button" onClick={() => document.getElementById('router-workbench')?.scrollIntoView({behavior:'smooth'})}>OPEN DIAGNOSTIC ROUTER <span>↓</span></button>
               <button type="button" className="sentinel-outline-button" onClick={() => switchWorkbenchView('ledger')}>VIEW EVIDENCE LEDGER <span>↗</span></button>
