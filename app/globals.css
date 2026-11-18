@@ -91,3 +91,31 @@
 .sentinel-code-diff i{font-style:normal;width:10px}
 @media(max-width:900px){.sentinel-nav{padding:0 24px}.sentinel-band{padding-left:24px;padding-right:24px}.sentinel-bento-grid{grid-template-columns:1fr 1fr}.sentinel-bento-card:last-child{grid-column:1/-1}}
 @media(max-width:640px){.sentinel-nav{top:18px;padding:0 18px}.sentinel-demo-cta{display:none}.sentinel-menu-toggle{display:flex;flex-direction:column;gap:5px;width:40px;height:40px;align-items:center;justify-content:center;background:#fff;border:0;border-radius:0;z-index:52}.sentinel-menu-toggle span{height:1px;width:18px;background:#121212}.sentinel-nav>div.sentinel-nav-links{display:none}.sentinel-nav>div.sentinel-nav-links.is-open{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:28px;padding:32px;background:#000}.sentinel-nav>div.sentinel-nav-links.is-open a{font-size:28px;font-weight:500}.sentinel-hero-inner{padding-top:140px}.sentinel-event-body{grid-template-columns:1fr}.sentinel-event-sidebar{border-right:0;border-bottom:1px solid var(--sentinel-ring);display:grid;grid-template-columns:1fr 1fr}.sentinel-event-sidebar>.sentinel-data-label{grid-column:1/-1}.sentinel-event-table{padding:10px}.sentinel-event-row{grid-template-columns:100px minmax(70px,1fr) 38px;gap:8px;font-size:9px}.sentinel-event-heading{font-size:8px}.sentinel-event-foot{font-size:8px;flex-wrap:wrap}.sentinel-bento-grid{grid-template-columns:1fr}.sentinel-bento-card:last-child{grid-column:auto}.sentinel-stats{grid-template-columns:1fr 1fr}.sentinel-stats>div{border-bottom:1px solid var(--sentinel-ring)}}
+
+
+/* Travelling USB-C instrument and interactive bridge */
+.sentinel-travelling-usb{position:fixed;z-index:8;left:0;top:0;width:clamp(190px,28vw,360px);pointer-events:none;will-change:transform,opacity;filter:drop-shadow(0 14px 18px rgba(0,0,0,.38))}
+.sentinel-travelling-usb svg{display:block;width:100%;height:auto}
+.sentinel-usb-lab{position:relative}
+.sentinel-usb-panel{background:#0a0a0a;border:1px solid rgba(255,255,255,.145);overflow:hidden}
+.sentinel-usb-visual{min-height:310px;position:relative;padding:32px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.sentinel-port-frame{position:absolute;right:8%;top:50%;transform:translateY(-50%);z-index:2;display:flex;align-items:center;gap:12px}
+.sentinel-port{width:76px;height:28px;border:2px solid #7c8797;background:#050608;display:flex;align-items:center;justify-content:space-evenly;box-shadow:inset 0 0 0 5px #151a22}
+.sentinel-port span{width:7px;height:7px;background:#52a8ff;opacity:.5}
+.sentinel-port-label{font:10px "Geist Mono",var(--font-mono),monospace;color:#999;writing-mode:vertical-rl;letter-spacing:.1em}
+.sentinel-usb-drawing{position:relative;z-index:1;width:min(100%,760px);height:auto;overflow:visible}
+.sentinel-usb-panel.is-plugged .sentinel-port{border-color:#62c073}
+.sentinel-usb-panel.is-plugged .sentinel-port span{background:#62c073;opacity:1}
+.sentinel-usb-controls{position:absolute;left:28px;right:28px;bottom:24px;z-index:3;display:flex;justify-content:space-between;align-items:flex-end;gap:18px}
+.sentinel-usb-state{display:block;color:#ededed;font:400 13px "Geist Mono",var(--font-mono),monospace}
+.sentinel-usb-button{border:0;border-radius:0;background:#fff;color:#121212;padding:13px 18px;font:500 12px "Geist Mono",var(--font-mono),monospace;letter-spacing:.04em;cursor:pointer}
+.sentinel-usb-button:hover{background:#e7e7e7}
+.sentinel-usb-readouts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid rgba(255,255,255,.145)}
+.sentinel-usb-readouts>div{padding:18px 20px;border-right:1px solid rgba(255,255,255,.145);display:flex;flex-direction:column;gap:10px;min-width:0}
+.sentinel-usb-readouts>div:last-child{border-right:0}
+.sentinel-usb-readouts span,.sentinel-usb-note{font:10px "Geist Mono",var(--font-mono),monospace;letter-spacing:.08em;color:#999}
+.sentinel-usb-readouts b{font:400 12px "Geist Mono",var(--font-mono),monospace;color:#ededed}
+.sentinel-usb-panel.is-plugged .sentinel-usb-readouts>div:nth-child(2) b,.sentinel-usb-panel.is-plugged .sentinel-usb-readouts>div:nth-child(3) b,.sentinel-usb-panel.is-plugged .sentinel-usb-readouts>div:nth-child(4) b{color:#62c073}
+.sentinel-usb-note{padding:14px 20px;margin:0;border-top:1px solid rgba(255,255,255,.08);font-size:9px}
+@media(max-width:640px){.sentinel-travelling-usb{width:190px}.sentinel-usb-visual{min-height:280px;padding:14px}.sentinel-port-frame{right:5%;top:35%;transform:scale(.75)}.sentinel-usb-controls{left:14px;right:14px;bottom:14px;align-items:flex-start;flex-direction:column}.sentinel-usb-button{padding:11px 12px;font-size:10px}.sentinel-usb-readouts{grid-template-columns:1fr 1fr}.sentinel-usb-readouts>div:nth-child(2){border-right:0}.sentinel-usb-readouts>div:nth-child(-n+2){border-bottom:1px solid rgba(255,255,255,.145)}}
+@media(prefers-reduced-motion:reduce){.sentinel-travelling-usb{display:none!important}.sentinel-usb-drawing path{transition:none!important}}
