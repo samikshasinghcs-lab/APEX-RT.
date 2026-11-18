@@ -95,6 +95,8 @@ export function useSentinelRuntime() {
     }
   );
   const [isTriaging, setIsTriaging] = useState<boolean>(false);
+  const [preferOnDeviceCount, setPreferOnDeviceCount] = useState(0);
+  const [preferInCloudCount, setPreferInCloudCount] = useState(0);
 
 
 
@@ -128,5 +130,6 @@ export function useSentinelRuntime() {
     offlineQueueItems,setOfflineQueueItems,isFirebaseConfigured,
     selectedLocale,setSelectedLocale,rawTelemetryInput,setRawTelemetryInput,
     routingDecision,setRoutingDecision,consensusResult,setConsensusResult,isTriaging,setIsTriaging,
+    preferOnDeviceCount,setPreferOnDeviceCount,preferInCloudCount,setPreferInCloudCount,
   };
 }
