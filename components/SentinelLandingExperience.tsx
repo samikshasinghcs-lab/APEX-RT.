@@ -94,11 +94,11 @@ function EngineCanvas({kind}:{kind:string}) {
       if(!alive)return; const w=c.clientWidth,h=c.clientHeight,dpr=Math.min(devicePixelRatio||1,2);
       if(c.width!==Math.floor(w*dpr)||c.height!==Math.floor(h*dpr)){c.width=Math.floor(w*dpr);c.height=Math.floor(h*dpr);}
       ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);t+=.018;
-      ctx.strokeStyle='rgba(255,255,255,.2)';ctx.fillStyle='rgba(99,102,241,.9)';ctx.lineWidth=1.5;
+      ctx.strokeStyle='rgba(255,255,255,.2)';ctx.fillStyle='#2C4A8F';ctx.lineWidth=1.5;
       if(kind==='wave'){ctx.beginPath();for(let x=0;x<w;x+=2){const y=h/2+Math.sin(x*.055-t*2)*Math.sin(x*.012+1)*h*.28;x?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.stroke();}
       if(kind==='blocks'){for(let row=0;row<2;row++)for(let i=0;i<22;i++){ctx.globalAlpha=.16+.65*(.5+.5*Math.sin(t*2+i*.42+row*1.7));ctx.fillRect(4+i*(w-10)/22,row*23+12,Math.max(2,(w-20)/30),12);}ctx.globalAlpha=1;}
       if(kind==='stems'){for(let i=0;i<4;i++){ctx.beginPath();for(let x=0;x<w;x+=3){const y=12+i*15+Math.sin(x*.025-t*(.7+i*.22)+i)*5;x?ctx.lineTo(x,y):ctx.moveTo(x,y);}ctx.globalAlpha=.25+i*.18;ctx.stroke();}ctx.globalAlpha=1;}
-      if(kind==='ring'){const x=w/2,y=h/2,r=23;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.strokeStyle='rgba(255,255,255,.18)';ctx.stroke();ctx.beginPath();ctx.arc(x,y,r,-Math.PI/2,-Math.PI/2+Math.PI*1.4);ctx.strokeStyle='#7778f5';ctx.lineWidth=2.5;ctx.stroke();ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();}
+      if(kind==='ring'){const x=w/2,y=h/2,r=23;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.strokeStyle='rgba(255,255,255,.18)';ctx.stroke();ctx.beginPath();ctx.arc(x,y,r,-Math.PI/2,-Math.PI/2+Math.PI*1.4);ctx.strokeStyle='#2C4A8F';ctx.lineWidth=2.5;ctx.stroke();ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();}
       raf=requestAnimationFrame(draw);
     };raf=requestAnimationFrame(draw);return()=>{alive=false;cancelAnimationFrame(raf);};
   },[kind]);
@@ -111,7 +111,7 @@ function Spectrum() {
     const c=ref.current,ctx=c?.getContext('2d');if(!c||!ctx)return;
     let raf=0,t=0,visible=true;const observer=new IntersectionObserver(([e])=>{visible=e.isIntersecting;if(visible)raf=requestAnimationFrame(draw);else cancelAnimationFrame(raf);},{threshold:.05});
     observer.observe(c);
-    const draw=()=>{if(!visible)return;const w=c.clientWidth,h=c.clientHeight,dpr=Math.min(devicePixelRatio||1,2);if(c.width!==w*dpr||c.height!==h*dpr){c.width=w*dpr;c.height=h*dpr;}ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);t+=.025;const n=72,gap=3,bw=(w-gap*(n-1))/n,start=12,end=32;for(let i=0;i<n;i++){const env=Math.sin((i/(n-1))*Math.PI);const wave=.28+.42*(.5+.5*Math.sin(i*.38+t))+ .18*(.5+.5*Math.sin(i*.17-t*1.4));const bh=i>=start&&i<=end?Math.max(16,env*wave*h*.78):Math.max(3,env*wave*h*.68);const x=i*(bw+gap),y=(h-bh)/2;ctx.fillStyle=i>=start&&i<=end?'#6366F1':'rgba(255,255,255,.16)';ctx.fillRect(x,y,bw,bh);}ctx.strokeStyle='rgba(99,102,241,.9)';ctx.lineWidth=1;ctx.strokeRect(start*(bw+gap)-5,8,(end-start+1)*(bw+gap)-gap+10,h-16);setHz(2200+Math.round(450*Math.sin(t*.45)));raf=requestAnimationFrame(draw);};
+    const draw=()=>{if(!visible)return;const w=c.clientWidth,h=c.clientHeight,dpr=Math.min(devicePixelRatio||1,2);if(c.width!==w*dpr||c.height!==h*dpr){c.width=w*dpr;c.height=h*dpr;}ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);t+=.025;const n=72,gap=3,bw=(w-gap*(n-1))/n,start=12,end=32;for(let i=0;i<n;i++){const env=Math.sin((i/(n-1))*Math.PI);const wave=.28+.42*(.5+.5*Math.sin(i*.38+t))+ .18*(.5+.5*Math.sin(i*.17-t*1.4));const bh=i>=start&&i<=end?Math.max(16,env*wave*h*.78):Math.max(3,env*wave*h*.68);const x=i*(bw+gap),y=(h-bh)/2;ctx.fillStyle=i>=start&&i<=end?'rgba(20,28,43,.48)':'rgba(20,28,43,.14)';ctx.fillRect(x,y,bw,bh);}ctx.strokeStyle='#2C4A8F';ctx.lineWidth=1;ctx.strokeRect(start*(bw+gap)-5,8,(end-start+1)*(bw+gap)-gap+10,h-16);setHz(2200+Math.round(450*Math.sin(t*.45)));raf=requestAnimationFrame(draw);};
     raf=requestAnimationFrame(draw);return()=>{visible=false;cancelAnimationFrame(raf);observer.disconnect();};
   },[]);
   return <div className="sentinel-spectrum"><canvas ref={ref}/><div className="sentinel-spectrum-caption"><span>SELECTED RE-VOICE BAND · LIVE SPECTRAL VIEW</span><strong>{hz.toLocaleString()} HZ</strong></div></div>;
