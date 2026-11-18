@@ -126,5 +126,7 @@ export function useSentinelRuntime() {
     firebaseAiReady,nanoAvailability,nanoDownloadPct,setNanoDownloadPct,
     experimentArm,setExperimentArm,simulateOfflineMode,setSimulateOfflineMode,
     offlineQueueItems,setOfflineQueueItems,isFirebaseConfigured,
+    selectedLocale,setSelectedLocale,rawTelemetryInput,setRawTelemetryInput,
+    routingDecision,setRoutingDecision,consensusResult,setConsensusResult,isTriaging,setIsTriaging,
   };
 }
