@@ -1257,7 +1257,7 @@ export default function SentinelConsole() {
                       {consensusResult.consensusScore !== null
                         ? `${consensusResult.consensusScore}%`
                         : consensusResult.status === 'NOT_RUN_YET'
-                        ? 'NOT RUN YET'
+                        ? 'Awaiting analysis'
                         : 'AUDIT_UNAVAILABLE'}
                     </div>
                   </div>
@@ -1280,7 +1280,7 @@ export default function SentinelConsole() {
                     <div className="text-lg font-mono font-bold text-amber-400 tabular-nums mt-1">
                       {consensusResult.cloudAudit.ttftMs !== null
                         ? `${consensusResult.cloudAudit.ttftMs.toFixed(1)} ms`
-                        : 'N/A (No LLM)'}
+                        : '—'}
                     </div>
                   </div>
                 </div>
