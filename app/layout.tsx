@@ -1,53 +1,7 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans, JetBrains_Mono } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-sans',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-mono',
-});
-
-export const metadata: Metadata = {
-  title: 'QNX Sentinel Hybrid AI Telemetry & Forensics',
-  description:
-    'ASIL-D-inspired embedded QNX telemetry forensics console with Firebase Hybrid AI routing, Top-10 non-English automotive language diagnostics, Multimodal Vision Fault Inspection, Speculative Edge-vs-Cloud Consensus Gate, and SHA-256 Black-Box Flight Recorder.',
-  openGraph: {
-    title: 'QNX Sentinel Hybrid AI Telemetry & Forensics',
-    description:
-      'ASIL-D-inspired embedded QNX telemetry forensics console with Firebase Hybrid AI routing, Top-10 non-English automotive language diagnostics, Multimodal Vision Fault Inspection, Speculative Edge-vs-Cloud Consensus Gate, and SHA-256 Black-Box Flight Recorder.',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'QNX Sentinel Hybrid AI Telemetry & Forensics',
-    description:
-      'ASIL-D-inspired embedded QNX telemetry forensics console with Firebase Hybrid AI routing, Top-10 non-English automotive language diagnostics, Multimodal Vision Fault Inspection, Speculative Edge-vs-Cloud Consensus Gate, and SHA-256 Black-Box Flight Recorder.',
-  },
-};
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html
-      lang="en"
-      className={`${plusJakarta.variable} ${jetbrainsMono.variable} dark`}
-    >
-      <body
-        suppressHydrationWarning
-        className="font-sans antialiased bg-[#07090E] text-slate-100"
-      >
-        {children}
-      </body>
-    </html>
-  );
-}
+const inter=Inter({subsets:['latin'],weight:['300','400'],variable:'--font-sans'});
+const mono=JetBrains_Mono({subsets:['latin'],weight:['300'],variable:'--font-mono'});
+export const metadata:Metadata={title:'QNX Sentinel Hybrid AI Telemetry & Forensics',description:'QNX Sentinel is a hybrid AI post-mortem telemetry and forensics workbench for embedded-system diagnostics, multilingual fault analysis and traceable evidence.'};
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en" className={`${inter.variable} ${mono.variable} dark`}><body suppressHydrationWarning className="font-sans antialiased bg-[#0A0A0A] text-white">{children}</body></html>}
