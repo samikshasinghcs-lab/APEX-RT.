@@ -472,6 +472,12 @@ export default function SentinelConsole() {
             QNX Sentinel
           </a>
 
+          <div className="sentinel-nav-status">
+            <span className="sentinel-status-chip"><i className="sentinel-dot-green" /> HYBRID ONLINE</span>
+            <span className="sentinel-status-chip"><i className="sentinel-dot-blue" /> {routingDecision.routeTarget}</span>
+            <span className="sentinel-status-chip"><i className="sentinel-dot-muted" /> NANO PROMPT API: {routingDecision.nanoLanguageSupported ? 'READY' : 'NO'}</span>
+            <button type="button" className="sentinel-diagnostics-toggle" onClick={() => setDiagnosticsOpen(v => !v)} aria-expanded={diagnosticsOpen}>SYSTEM DIAGNOSTICS</button>
+          </div>
           <nav
             aria-label="Primary Workbench Views"
             className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300"
