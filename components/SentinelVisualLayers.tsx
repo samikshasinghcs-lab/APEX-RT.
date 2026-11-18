@@ -85,7 +85,7 @@ export function UsbBridge() {
     return () => window.removeEventListener('sentinel-usb-connect', connectFromCable);
   }, []);
   useEffect(() => {
-    if (!connected) { setProgress(0); return; }
+    if (!connected) return;
     const timers = [setTimeout(() => setProgress(1), 350), setTimeout(() => setProgress(2), 850), setTimeout(() => setProgress(3), 1400)];
     return () => timers.forEach(clearTimeout);
   }, [connected]);
@@ -93,11 +93,11 @@ export function UsbBridge() {
     <div className="sentinel-section-kicker">HARDWARE INTERFACE / 05</div>
     <div className="sentinel-usb-layout">
       <div><h2>QNX Neutrino<br/><span>Hardware Bridge</span></h2><p>Connect the diagnostic session to the target interface and inspect the Safe Torque Off watchdog channel.</p>
-        <button className="sentinel-square-button" type="button" onClick={() => setConnected(v => !v)}>{connected ? 'Disconnect Target' : 'Plug Into Target Port'} <span>↗</span></button>
+        <button className="sentinel-square-button" type="button" onClick={() => { setProgress(0); setConnected(v => !v); }}>{connected ? 'Disconnect Target' : 'Plug Into Target Port'} <span>↗</span></button>
       </div>
       <div className={`sentinel-port-panel ${connected ? 'is-connected' : ''}`}>
         <div className="sentinel-port-head"><span>TARGET PORT / USB-C</span><span>{connected ? 'LINK ESTABLISHED' : 'AWAITING CONNECTION'}</span></div>
-        <button className="sentinel-usb-connector" type="button" onClick={() => setConnected(v => !v)} aria-label={connected ? 'Disconnect USB-C connector' : 'Connect USB-C connector'}>
+        <button className="sentinel-usb-connector" type="button" onClick={() => { setProgress(0); setConnected(v => !v); }} aria-label={connected ? 'Disconnect USB-C connector' : 'Connect USB-C connector'}>
           <span className="sentinel-usb-tip" /><span className="sentinel-usb-cable" />
         </button>
         <div className="sentinel-port-socket"><span /></div>
