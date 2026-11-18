@@ -360,3 +360,13 @@ body{background:var(--qnx-void)!important;color:#f4f4f5!important;font-family:va
 @media(max-width:760px){.sentinel-production-nav{min-height:60px}.sentinel-production-hero{min-height:82svh;padding-bottom:72px}.sentinel-production-hero h1{font-size:clamp(54px,15vw,90px)}.sentinel-subsystems{grid-template-columns:repeat(2,minmax(0,1fr))}.sentinel-subsystem:nth-child(2){border-right:0}.sentinel-subsystem:nth-child(-n+2){border-bottom:1px solid var(--qnx-line)}.sentinel-usb-layout{grid-template-columns:1fr}.sentinel-register-grid{grid-template-columns:repeat(2,minmax(0,1fr));bottom:45px}.sentinel-port-panel{min-height:390px}}
 @media(max-width:440px){.sentinel-subsystems{grid-template-columns:1fr}.sentinel-subsystem{border-right:0;border-bottom:1px solid var(--qnx-line)}.sentinel-diagnostics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sentinel-production-nav{padding-inline:14px}.sentinel-production-nav>a{font-size:17px}.sentinel-hero-actions{flex-direction:column;align-items:stretch}}
 @media(prefers-reduced-motion:reduce){.sentinel-travelling-cable{display:none!important}html{scroll-behavior:auto}}
+
+
+.sentinel-nav-status{display:flex!important;max-width:min(56vw,720px);overflow-x:auto;scrollbar-width:none}
+.sentinel-nav-status::-webkit-scrollbar{display:none}
+.sentinel-production-nav>div:last-child button{border-radius:0!important;background:#fff!important;color:#121212!important;border:1px solid #fff!important;min-height:40px;padding:0 14px;font:600 10px var(--font-mono),monospace}
+.sentinel-console #router-workbench .sentinel-locale-selector button{background:#09090c!important;color:#b8b8c2!important;border:1px solid rgba(255,255,255,.10)!important;padding:9px 11px!important}
+.sentinel-console #router-workbench .sentinel-locale-selector button[class*="bg-cyan-500"]{background:#111827!important;color:#fff!important;border-color:#52A8FF!important;box-shadow:inset 0 0 0 1px #6366F1}
+.sentinel-console #router-workbench .sentinel-locale-selector button:hover{border-color:#52A8FF!important}
+@media(max-width:1150px){.sentinel-production-nav nav{display:none!important}.sentinel-nav-status{max-width:58vw}}
+@media(max-width:760px){.sentinel-nav-status{max-width:52vw}.sentinel-status-chip{font-size:8px;padding:6px 8px}.sentinel-diagnostics-toggle{font-size:8px;padding:6px 8px}}
