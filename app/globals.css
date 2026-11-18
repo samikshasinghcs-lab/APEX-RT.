@@ -164,3 +164,117 @@
  .sentinel-console [class*="xl:flex-row"]{align-items:flex-start}
  .sentinel-console [class*="grid-cols-3"]{grid-template-columns:1fr 1fr!important}
 }
+
+
+/* Editorial maker-page direction: warm stock, ink typography, restrained blue */
+.sentinel-landing{
+ --paper:#EFE9DD;--paper-deep:#E5DED0;--ink:#141C2B;--ink-soft:#4A5364;--muted:#767E8C;--rule:rgba(20,28,43,.16);--accent:#2C4A8F;
+ background:var(--paper)!important;color:var(--ink)!important;
+ font-family:var(--font-typewriter),"Courier Prime",monospace!important;
+}
+.sentinel-landing *{border-radius:0!important;box-shadow:none}
+.sentinel-landing .sentinel-nav{position:fixed;top:0;left:0;right:0;height:58px;z-index:40;padding:0 clamp(18px,4vw,56px);background:rgba(239,233,221,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--rule)}
+.sentinel-landing .sentinel-wordmark{font:500 19px var(--font-display),Georgia,serif;letter-spacing:-.02em;color:var(--ink)}
+.sentinel-landing .sentinel-wordmark i{font-style:normal;color:var(--accent)}
+.sentinel-landing .sentinel-nav>div a,.sentinel-landing .sentinel-demo-cta{font:700 10px var(--font-typewriter),monospace;letter-spacing:.1em;color:var(--ink-soft);background:transparent;border:0}
+.sentinel-landing .sentinel-nav>div a:hover{color:var(--accent)}
+.sentinel-landing .sentinel-demo-cta{border:1px solid var(--ink);padding:10px 14px}
+.sentinel-landing .sentinel-demo-cta:hover{background:var(--ink);color:var(--paper)!important}
+.sentinel-landing .sentinel-menu-toggle{background:transparent;border:1px solid var(--ink)}
+.sentinel-landing .sentinel-menu-toggle span{background:var(--ink)}
+.sentinel-landing .sentinel-hero{min-height:calc(100svh - 58px);margin-top:58px;background:var(--paper-deep);overflow:hidden;border-bottom:1px solid var(--rule);display:flex;align-items:stretch}
+.sentinel-landing .sentinel-ribbons{opacity:0;visibility:hidden}
+.sentinel-landing .sentinel-hero-veil{display:none}
+.sentinel-landing .sentinel-hero-inner{max-width:none;padding:clamp(76px,12vh,132px) clamp(22px,6vw,88px) 0;display:flex;flex-direction:column;align-items:flex-start}
+.sentinel-landing .sentinel-meta,.sentinel-landing .sentinel-eyebrow,.sentinel-landing .sentinel-meta span,.sentinel-landing .sentinel-engine-index,.sentinel-landing .sentinel-stats span,.sentinel-landing .sentinel-spectrum-caption,.sentinel-landing .sentinel-footer,.sentinel-landing .sentinel-workbench-label,.sentinel-landing .sentinel-data-label,.sentinel-landing .sentinel-mono,.sentinel-landing .sentinel-event-card,.sentinel-landing .sentinel-bento-card,.sentinel-landing .sentinel-usb-note{font-family:var(--font-typewriter),"Courier Prime",monospace!important;letter-spacing:.075em;color:var(--ink-soft)}
+.sentinel-landing .sentinel-meta{width:min(100%,900px);border-color:var(--rule);font-size:11px;line-height:1.9}
+.sentinel-landing .sentinel-hero h1,.sentinel-landing .sentinel-band-intro h2,.sentinel-landing .sentinel-close h2{font-family:var(--font-display),Georgia,serif;font-weight:500;letter-spacing:-.02em;color:var(--ink)}
+.sentinel-landing .sentinel-hero h1{font-size:clamp(32px,4.6vw,68px);line-height:1.04;max-width:46vw;margin:clamp(42px,8vh,90px) 0 22px}
+.sentinel-landing .sentinel-hero-bottom{max-width:760px;align-items:flex-start;flex-direction:column;gap:24px}
+.sentinel-landing .sentinel-hero-bottom p,.sentinel-landing .sentinel-band-intro>p,.sentinel-landing .sentinel-engine p,.sentinel-landing .sentinel-faq details p{font:400 12px/1.9 var(--font-typewriter),monospace;letter-spacing:.035em;color:var(--ink-soft);max-width:68ch}
+.sentinel-landing .sentinel-actions{gap:10px}
+.sentinel-landing .sentinel-button,.sentinel-landing .sentinel-button.primary{min-height:42px;padding:0 16px;border:1px solid var(--ink);background:transparent;color:var(--ink);font:700 10px var(--font-typewriter),monospace;letter-spacing:.08em}
+.sentinel-landing .sentinel-button.primary{background:var(--ink);color:var(--paper)}
+.sentinel-landing .sentinel-button:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.sentinel-landing .sentinel-button.primary:hover{background:var(--accent);border-color:var(--accent)}
+.sentinel-landing .sentinel-hero:after{content:"Q N X   S E N T I N E L";display:flex;align-items:flex-end;justify-content:space-between;width:100%;padding:0 clamp(18px,3vw,48px);height:clamp(78px,15vh,150px);margin-top:auto;overflow:hidden;white-space:nowrap;font:500 clamp(54px,11vw,160px)/.72 var(--font-display),Georgia,serif;letter-spacing:-.055em;color:var(--ink);transform:translateY(8%)}
+.sentinel-landing .sentinel-band{max-width:1120px;margin:0 auto;padding:clamp(64px,9vw,112px) clamp(20px,5vw,60px);background:transparent;border-bottom:1px solid var(--rule)}
+.sentinel-landing .sentinel-band-head{margin-bottom:32px}
+.sentinel-landing .sentinel-eyebrow{font-size:10px;color:var(--accent);font-weight:700}
+.sentinel-landing .sentinel-rule{background:var(--rule)}
+.sentinel-landing .sentinel-band-intro{grid-template-columns:.9fr 1.1fr;gap:48px;margin-bottom:36px}
+.sentinel-landing .sentinel-band-intro h2,.sentinel-landing .sentinel-close h2{font-size:clamp(32px,4.5vw,58px);line-height:1.02}
+.sentinel-landing .sentinel-engine-grid{display:block;background:transparent;border:0}
+.sentinel-landing .sentinel-engine{display:grid;grid-template-columns:100px minmax(0,1fr) 100px;align-items:center;gap:18px;padding:18px 0;background:transparent;border:0;border-top:1px solid var(--rule)}
+.sentinel-landing .sentinel-engine-canvas{width:88px;height:54px;margin:0;filter:grayscale(1)}
+.sentinel-landing .sentinel-engine-index{grid-column:3;grid-row:1;text-align:right;margin:0;color:var(--accent)}
+.sentinel-landing .sentinel-engine h3{grid-column:2;grid-row:1;font:500 22px var(--font-display),Georgia,serif;color:var(--ink);margin:0}
+.sentinel-landing .sentinel-engine p{grid-column:2;grid-row:2;margin:0}
+.sentinel-landing .sentinel-spectrum{height:220px;background:transparent;border:1px solid var(--rule)}
+.sentinel-landing .sentinel-spectrum-caption{color:var(--ink-soft)}
+.sentinel-landing .sentinel-spectrum-caption strong{color:var(--accent)}
+.sentinel-landing .sentinel-stats{grid-template-columns:repeat(4,minmax(0,1fr));gap:0;background:transparent;border:0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.sentinel-landing .sentinel-stats>div{padding:22px 16px;background:transparent;border:0;border-right:1px solid var(--rule)}
+.sentinel-landing .sentinel-stats>div:last-child{border-right:0}
+.sentinel-landing .sentinel-stats strong{font:500 42px var(--font-display),Georgia,serif;color:var(--ink)}
+.sentinel-landing .sentinel-stats strong em{font-style:italic;color:var(--accent)}
+.sentinel-landing .sentinel-event-card,.sentinel-landing .sentinel-bento-card,.sentinel-landing .sentinel-usb-panel{background:transparent;border:1px solid var(--rule)}
+.sentinel-landing .sentinel-event-top,.sentinel-landing .sentinel-event-foot,.sentinel-landing .sentinel-event-sidebar,.sentinel-landing .sentinel-event-row,.sentinel-landing .sentinel-bento-head,.sentinel-landing .sentinel-regression-rows>div{border-color:var(--rule)}
+.sentinel-landing .sentinel-event-item b,.sentinel-landing .sentinel-event-selected b,.sentinel-landing .sentinel-event-row,.sentinel-landing .sentinel-regression-rows>div,.sentinel-landing .sentinel-clusters>div,.sentinel-landing .sentinel-code-diff>div{color:var(--ink-soft)}
+.sentinel-landing .sentinel-event-selected{background:rgba(44,74,143,.06);box-shadow:inset 2px 0 var(--accent)}
+.sentinel-landing .sentinel-event-selected i.focus,.sentinel-landing .sentinel-event-row.is-focus .sentinel-timeline i,.sentinel-landing .sentinel-clusters>div>i b{background:var(--accent)}
+.sentinel-landing .sentinel-event-row.is-focus .sentinel-span-name,.sentinel-landing .sentinel-event-foot b,.sentinel-landing .sentinel-regression-rows em{color:var(--accent)}
+.sentinel-landing .sentinel-bento-grid{display:block}
+.sentinel-landing .sentinel-bento-card{padding:20px 0;border:0;border-top:1px solid var(--rule)}
+.sentinel-landing .sentinel-bento-card h3{font:500 24px var(--font-display),Georgia,serif;color:var(--ink);margin:16px 0 6px}
+.sentinel-landing .sentinel-bento-card>p{font:400 11px/1.9 var(--font-typewriter),monospace;color:var(--ink-soft);min-height:0}
+.sentinel-landing .sentinel-code-diff{background:transparent;border-color:var(--rule)}
+.sentinel-landing .sentinel-code-diff>div.added,.sentinel-landing .sentinel-code-diff>div.modified{background:transparent;color:var(--accent);border-color:var(--accent)}
+.sentinel-landing .sentinel-chip{background:transparent;border:1px solid var(--rule);color:var(--ink-soft)}
+.sentinel-landing .sentinel-faq details{border-color:var(--rule)}
+.sentinel-landing .sentinel-faq summary{font:500 20px var(--font-display),Georgia,serif;color:var(--ink)}
+.sentinel-landing .sentinel-faq summary:hover{color:var(--accent)}
+.sentinel-landing .sentinel-close{background:var(--paper-deep);padding:clamp(70px,10vw,120px) clamp(20px,5vw,60px);border-bottom:1px solid var(--rule)}
+.sentinel-landing .sentinel-footer,.sentinel-landing .sentinel-workbench-label{max-width:1120px;color:var(--muted);border-color:var(--rule);font-size:10px}
+.sentinel-landing .sentinel-travelling-usb{filter:drop-shadow(0 8px 8px rgba(20,28,43,.22))}
+.sentinel-landing .sentinel-travelling-usb svg path:first-child{stroke:#6d7480}
+.sentinel-landing .sentinel-travelling-usb svg path:nth-child(2){stroke:#d5d9df}
+.sentinel-landing .sentinel-usb-lab .sentinel-usb-panel{padding:0}
+.sentinel-landing .sentinel-usb-variants{display:flex;gap:0;border-bottom:1px solid var(--rule);padding:0 18px}
+.sentinel-landing .sentinel-usb-variants button{padding:14px 18px;background:transparent;border:0;border-bottom:2px solid transparent;color:var(--ink-soft);font:700 10px var(--font-typewriter),monospace;letter-spacing:.09em;cursor:pointer}
+.sentinel-landing .sentinel-usb-variants button[aria-pressed=true]{color:var(--accent);border-bottom-color:var(--accent)}
+.sentinel-landing .sentinel-usb-visual{background:transparent;min-height:300px}
+.sentinel-landing .sentinel-port{background:var(--paper-deep);border-color:var(--ink-soft);box-shadow:inset 0 0 0 5px #d7d0c3}
+.sentinel-landing .sentinel-port span{background:var(--accent)}
+.sentinel-landing .sentinel-port-label,.sentinel-landing .sentinel-usb-readouts span,.sentinel-landing .sentinel-usb-note{color:var(--muted)}
+.sentinel-landing .sentinel-usb-state,.sentinel-landing .sentinel-usb-readouts b{font:500 15px var(--font-display),Georgia,serif;color:var(--ink)}
+.sentinel-landing .sentinel-usb-button{background:var(--ink);color:var(--paper);border:1px solid var(--ink);font:700 10px var(--font-typewriter),monospace}
+.sentinel-landing .sentinel-usb-button:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.sentinel-landing .sentinel-usb-readouts{border-color:var(--rule)}
+.sentinel-landing .sentinel-usb-readouts>div{border-color:var(--rule)}
+.sentinel-landing .sentinel-usb-note{padding:0 18px 18px;letter-spacing:.07em}
+.sentinel-landing .sentinel-intro{background:var(--paper);color:var(--ink)}
+.sentinel-landing .sentinel-intro span{font:500 clamp(28px,5vw,56px) var(--font-display),Georgia,serif}
+@media(max-width:700px){
+ .sentinel-landing .sentinel-hero-inner{padding:100px 22px 0}
+ .sentinel-landing .sentinel-hero h1{max-width:90vw;margin:52px 0 22px}
+ .sentinel-landing .sentinel-hero:after{font-size:clamp(42px,12vw,80px);height:90px}
+ .sentinel-landing .sentinel-band-intro{grid-template-columns:1fr;gap:14px}
+ .sentinel-landing .sentinel-engine{grid-template-columns:62px minmax(0,1fr);gap:12px}
+ .sentinel-landing .sentinel-engine-canvas{width:58px}
+ .sentinel-landing .sentinel-engine-index{grid-column:2;grid-row:1;text-align:right;font-size:9px}
+ .sentinel-landing .sentinel-engine h3{grid-column:2;grid-row:2;font-size:20px}
+ .sentinel-landing .sentinel-engine p{grid-column:2;grid-row:3}
+ .sentinel-landing .sentinel-stats{grid-template-columns:1fr 1fr}
+ .sentinel-landing .sentinel-stats>div:nth-child(2){border-right:0}
+ .sentinel-landing .sentinel-stats>div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+ .sentinel-landing .sentinel-usb-controls{position:relative;left:auto;right:auto;bottom:auto;padding:18px;align-items:flex-start;flex-direction:column}
+ .sentinel-landing .sentinel-port-frame{right:4%;top:34%}
+ .sentinel-landing .sentinel-usb-visual{min-height:330px;padding:14px}
+ .sentinel-landing .sentinel-usb-readouts{grid-template-columns:1fr 1fr}
+ .sentinel-landing .sentinel-usb-readouts>div:nth-child(2){border-right:0}
+ .sentinel-landing .sentinel-usb-readouts>div:nth-child(-n+2){border-bottom:1px solid var(--rule)}
+ .sentinel-landing .sentinel-nav>div.sentinel-nav-links.is-open{background:var(--paper);border-left:1px solid var(--rule)}
+ .sentinel-landing .sentinel-nav>div.sentinel-nav-links.is-open a{color:var(--ink)}
+}
+@media(prefers-reduced-motion:reduce){.sentinel-landing .sentinel-travelling-usb{display:none}}
