@@ -122,7 +122,7 @@ export function useSentinelRuntime() {
   },[]);
 
   return {
-    currentUser,setCurrentUser,firestoreOnline,appCheckLabel,remoteConfigSource,
+    currentUser,setCurrentUser,firestoreOnline,appCheckLabel,remoteConfigSource,setRemoteConfigSource,
     firebaseAiReady,nanoAvailability,nanoDownloadPct,setNanoDownloadPct,
     experimentArm,setExperimentArm,simulateOfflineMode,setSimulateOfflineMode,
     offlineQueueItems,setOfflineQueueItems,isFirebaseConfigured,
