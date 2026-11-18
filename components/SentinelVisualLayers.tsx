@@ -192,12 +192,12 @@ export function TravellingDebugCable() {
 
   return <>
     <div className={`sentinel-cable-hint ${dragging ? 'is-active' : ''} ${plugged ? 'is-done' : ''}`} aria-live="polite">
-      {plugged ? 'TARGET LINK CONNECTED' : dragging ? 'PULL THE LEAD · SCROLL TO TARGET' : 'GRAB THE USB-C PLUG · DRAG TO SCROLL'}
+      <><span className="sentinel-cable-hint-icon" aria-hidden="true">↓</span><span>{dragging ? 'KEEP PULLING · SCROLL TO HARDWARE BRIDGE' : 'DRAG PLUG DOWN · SCROLL · DROP INTO SOCKET'}</span><span className="sentinel-cable-hint-step">01 / CONNECT</span></>
     </div>
     <svg
       ref={ref}
       className={`sentinel-travelling-cable ${dragging ? 'is-dragging' : ''} ${plugged ? 'is-plugged' : ''}`}
-      viewBox="0 0 180 42"
+      viewBox="0 0 190 54"
       role="img"
       aria-label="Draggable USB-C cable. Drag it down the page and drop the connector into the target socket."
       onPointerDown={onPointerDown}
@@ -206,10 +206,17 @@ export function TravellingDebugCable() {
       onPointerCancel={onPointerUp}
       style={{ left: 28, top: '36vh', pointerEvents: plugged ? 'none' : 'auto', touchAction: 'none', cursor: dragging ? 'grabbing' : 'grab' }}
     >
-      <path d="M8 21 C35 3 60 39 88 21 S140 3 160 21" fill="none" stroke="#fff" strokeWidth="7" strokeLinecap="round"/>
-      <path d="M8 21 C35 3 60 39 88 21 S140 3 160 21" fill="none" stroke="#777" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 5"/>
-      <rect x="151" y="10" width="24" height="22" rx="3" fill="#b8b8b8" stroke="#fff"/>
-      <rect x="172" y="15" width="7" height="12" rx="1" fill="#fff"/>
+      <defs>
+        <linearGradient id="usb-metal-polish" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff"/><stop offset=".45" stopColor="#aeb4c2"/><stop offset=".72" stopColor="#f7f8fb"/><stop offset="1" stopColor="#686f7d"/></linearGradient>
+        <linearGradient id="usb-cable-dark" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#777783"/><stop offset=".5" stopColor="#292932"/><stop offset="1" stopColor="#09090d"/></linearGradient>
+      </defs>
+      <path d="M5 27 C30 4 53 49 81 27 S130 5 159 27" fill="none" stroke="#050508" strokeWidth="13" strokeLinecap="round"/>
+      <path d="M5 25 C30 2 53 47 81 25 S130 3 159 25" fill="none" stroke="url(#usb-cable-dark)" strokeWidth="9" strokeLinecap="round"/>
+      <path d="M8 23 C31 5 54 44 81 23 S130 7 158 23" fill="none" stroke="#c5c5d0" strokeOpacity=".5" strokeWidth="1.3" strokeLinecap="round"/>
+      <rect x="143" y="13" width="25" height="28" rx="6" fill="#17171e" stroke="#777987" strokeWidth="1.4"/>
+      <rect x="151" y="16" width="30" height="22" rx="5" fill="url(#usb-metal-polish)" stroke="#fff" strokeWidth="1"/>
+      <rect x="176" y="20" width="13" height="14" rx="5" fill="#343741" stroke="#e8ebf2" strokeWidth="1.4"/>
+      <rect x="179" y="23" width="8" height="8" rx="3.5" fill="#090a0e" stroke="#aeb4c2" strokeWidth=".8"/>
     </svg>
     {plugged && <button type="button" className="sentinel-cable-reset" onClick={resetCable}>UNPLUG ↺</button>}
   </>;
