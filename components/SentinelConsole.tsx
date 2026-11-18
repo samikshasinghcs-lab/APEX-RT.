@@ -18,7 +18,7 @@ import {
   VolumeX,
   Download,
 } from 'lucide-react';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { User } from 'firebase/auth';
 import {
   collection,
   doc,
@@ -101,36 +101,10 @@ export default function SentinelConsole() {
   const [audioDspEnabled, setAudioDspEnabled] = useState<boolean>(false);
   const [gpuExportSuccess, setGpuExportSuccess] = useState<boolean>(false);
 
-  // Firebase 5-Product Readiness State
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [firestoreOnline, setFirestoreOnline] = useState<boolean>(false);
-  const [firestoreErrorMsg, setFirestoreErrorMsg] = useState<string | null>(
-    null
-  );
-  const [appCheckLabel, setAppCheckLabel] = useState<string>('INITIALIZING');
-  const [appCheckErrorMsg, setAppCheckErrorMsg] = useState<string | null>(null);
-  const [remoteConfigSource, setRemoteConfigSource] =
-    useState<string>('default');
-  const [firebaseAiReady, setFirebaseAiReady] = useState<boolean>(false);
-  const [firebaseAiInitError, setFirebaseAiInitError] = useState<string | null>(
-    null
-  );
-  const [nanoAvailability, setNanoAvailability] =
-    useState<NanoHardwareAvailability>('UNAVAILABLE_ON_HOST');
-  const [nanoDownloadPct, setNanoDownloadPct] = useState<number | null>(null);
-
-  // Offline / ONLY_ON_DEVICE Toggle & Queue State
-  const [simulateOfflineMode, setSimulateOfflineMode] =
-    useState<boolean>(false);
-  const [offlineQueueItems, setOfflineQueueItems] = useState<
-    OfflineForensicQueueItem[]
-  >([]);
-
-  // Feature 6: Remote Config Live Experiment Arm Toggle (`BALANCED_HYBRID` vs `STRICT_EDGE_SAVER`)
-  const [experimentArm, setExperimentArm] =
-    useState<ExperimentArm>('BALANCED_HYBRID');
-  const [preferOnDeviceCount, setPreferOnDeviceCount] = useState<number>(1);
-  const [preferInCloudCount, setPreferInCloudCount] = useState<number>(0);
+  const runtime = useSentinelRuntime();
+  const { currentUser, experimentArm, setExperimentArm, simulateOfflineMode,
+    setSimulateOfflineMode, offlineQueueItems, setOfflineQueueItems,
+    nanoDownloadPct, setNanoDownloadPct, remoteConfigSource, setRemoteConfigSource } = runtime;
 
   // Feature 1: Top-10+ Non-English Automotive & Industrial Language Adaptive Router
   const [selectedLocale, setSelectedLocale] = useState<SupportedLocale>('en');
@@ -254,58 +228,6 @@ export default function SentinelConsole() {
       window.setTimeout(() => setGpuExportSuccess(false), 2000);
     }
   }, [audioDspEnabled, kinematicsSample.ndcX]);
-
-  useEffect(() => {
-    let mounted = true;
-
-    async function bootstrapSentinel() {
-      const unsubAuth = auth
-        ? onAuthStateChanged(auth, (user) => {
-            if (mounted) setCurrentUser(user);
-          })
-        : () => {};
-
-      const dbStatus = await testFirestoreConnection();
-      if (mounted) {
-        setFirestoreOnline(dbStatus.online);
-        setFirestoreErrorMsg(dbStatus.errorMessage);
-      }
-
-      const appCheckStatus = initSentinelAppCheck();
-      if (mounted) {
-        setAppCheckLabel(appCheckStatus.providerLabel);
-        setAppCheckErrorMsg(appCheckStatus.errorMessage);
-      }
-
-      const rcStatus = await initSentinelRemoteConfig();
-      if (mounted) {
-        setExperimentArm(rcStatus.arm);
-        setRemoteConfigSource(rcStatus.source);
-      }
-
-      const aiStatus = getSentinelFirebaseAI();
-      if (mounted) {
-        setFirebaseAiReady(Boolean(aiStatus.ai));
-        setFirebaseAiInitError(aiStatus.errorMessage);
-      }
-
-      const nanoStatus = await probeGeminiNanoAvailability();
-      if (mounted) {
-        setNanoAvailability(nanoStatus);
-      }
-
-      if (mounted) {
-        setOfflineQueueItems(getOfflineQueue());
-      }
-
-      return () => unsubAuth();
-    }
-
-    bootstrapSentinel();
-    return () => {
-      mounted = false;
-    };
-  }, []);
 
   const appendBlockToChain = useCallback(
     async (params: {
