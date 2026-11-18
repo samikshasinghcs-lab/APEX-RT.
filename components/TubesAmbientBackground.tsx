@@ -52,14 +52,16 @@ export default function TubesAmbientBackground() {
             '#' + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0')
           );
 
-        const handleClick = () => {
+        const handleClick = (event: MouseEvent) => {
+          const target = event.target as HTMLElement | null;
+          if (target?.closest('button,a,input,textarea,select,[role="button"]')) return;
+          if (target?.closest('.sentinel-production-hero-inner,.sentinel-subsystem,.sentinel-usb-bridge')) return;
           appRef.current?.tubes?.setColors?.(randomColors(3));
           appRef.current?.tubes?.setLightsColors?.(randomColors(4));
         };
 
         window.addEventListener('click', handleClick);
-        removeClickListener = () =>
-          window.removeEventListener('click', handleClick);
+        removeClickListener = () => window.removeEventListener('click', handleClick);
       } catch (error) {
         // The core workbench remains fully usable if WebGL/CDN loading fails.
         console.warn('[Sentinel] 3D tubes background unavailable:', error);
