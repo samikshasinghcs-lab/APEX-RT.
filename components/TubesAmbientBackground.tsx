@@ -33,10 +33,10 @@ export default function TubesAmbientBackground() {
 
         const app = TubesCursor(canvas, {
           tubes: {
-            colors: ['#00D9F5', '#147D92', '#5B61D6'],
+            colors: ['#6366F1', '#52A8FF', '#62C073'],
             lights: {
               intensity: 105,
-              colors: ['#00D9F5', '#4B72FF', '#8B5CF6', '#20C997'],
+              colors: ['#6366F1', '#52A8FF', '#62C073', '#8B5CF6'],
             },
           },
         });
