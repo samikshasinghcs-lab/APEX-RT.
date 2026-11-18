@@ -455,3 +455,20 @@ body{overflow-x:hidden}
 .sentinel-console .sentinel-production-hero h1{font-family:var(--font-instrument),serif!important}
 .sentinel-console .sentinel-subsystem canvas{visibility:hidden}
 .sentinel-console .sentinel-trace-stream,.sentinel-console .sentinel-diagnostics-drawer,.sentinel-console .sentinel-port-panel,.sentinel-console .sentinel-subsystem{color:#fff}
+
+
+/* Hands-on USB-C cable interaction */
+.sentinel-travelling-cable{z-index:120!important;width:180px!important;height:42px!important;left:28px;top:36vh;pointer-events:auto!important;touch-action:none;cursor:grab;filter:grayscale(1) drop-shadow(0 5px 14px rgba(0,0,0,.55));transition:filter .18s,opacity .18s;user-select:none;-webkit-user-select:none}
+.sentinel-travelling-cable:hover{filter:grayscale(1) drop-shadow(0 0 14px rgba(255,255,255,.35))}
+.sentinel-travelling-cable.is-dragging{cursor:grabbing;filter:grayscale(1) drop-shadow(0 0 18px rgba(255,255,255,.55));z-index:140!important}
+.sentinel-travelling-cable.is-plugged{opacity:0;pointer-events:none}
+.sentinel-cable-hint{position:fixed;left:24px;bottom:22px;z-index:119;padding:9px 13px;border:1px solid rgba(255,255,255,.24);border-radius:999px;background:rgba(0,0,0,.52);backdrop-filter:blur(8px);color:rgba(255,255,255,.86);font:9px var(--font-mono),monospace;letter-spacing:.1em;pointer-events:none;transition:opacity .2s}
+.sentinel-cable-hint.is-active{background:rgba(255,255,255,.16);color:#fff;border-color:rgba(255,255,255,.6)}
+.sentinel-cable-hint.is-done{opacity:0}
+.sentinel-cable-reset{position:fixed;left:24px;bottom:22px;z-index:121;padding:10px 15px;border-radius:999px;background:#fff;color:#000;font:10px var(--font-mono),monospace;letter-spacing:.08em}
+.sentinel-port-socket{z-index:4;transition:border-color .2s,box-shadow .2s,transform .2s}
+.sentinel-port-panel:not(.is-connected) .sentinel-port-socket{animation:sentinel-socket-pulse 2.2s ease-in-out infinite}
+@keyframes sentinel-socket-pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}50%{box-shadow:0 0 0 7px rgba(255,255,255,.07)}}
+.sentinel-port-panel.is-connected .sentinel-port-socket{transform:scale(1.08)}
+@media(max-width:760px){.sentinel-travelling-cable{width:150px!important;height:35px!important}.sentinel-cable-hint,.sentinel-cable-reset{left:12px;bottom:12px;font-size:8px}}
+@media(prefers-reduced-motion:reduce){.sentinel-port-panel:not(.is-connected) .sentinel-port-socket{animation:none}}
