@@ -560,7 +560,7 @@ export default function SentinelConsole() {
               <div><small>APP CHECK</small><strong>{runtime.appCheckLabel}</strong></div>
               <div><small>REMOTE CONFIG</small><strong>{runtime.remoteConfigSource}</strong></div>
               <div><small>FIREBASE AI</small><strong>{runtime.firebaseAiReady ? 'READY' : 'UNAVAILABLE'}</strong></div>
-              <div><small>GEMINI NANO</small><strong>{runtime.nanoAvailability?.status ?? 'PROBING'}</strong></div>
+              <div><small>GEMINI NANO</small><strong>{runtime.nanoAvailability}</strong></div>
               <div><small>GPU / WEBGL</small><strong>BROWSER RENDERER</strong></div>
             </div>
           </aside>
@@ -616,7 +616,7 @@ export default function SentinelConsole() {
                 </div>
 
                 {/* Language Preset Selector Bar */}
-                <div className="space-y-1.5">
+                <div className="sentinel-locale-selector space-y-1.5">
                   <div className="text-xs font-medium text-slate-300">
                     Load Service-Bay Diagnostic Dump by Plant Locale:
                   </div>
