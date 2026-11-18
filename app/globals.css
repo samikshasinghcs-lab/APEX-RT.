@@ -285,3 +285,78 @@
 .sentinel-landing .sentinel-usb-panel.is-plugged .sentinel-port span{background:var(--accent)}
 .sentinel-landing .sentinel-event-row.is-focus .sentinel-timeline i{background:var(--accent)}
 .sentinel-landing .sentinel-engine-canvas{filter:grayscale(1);opacity:.8}
+
+
+/* QNX Sentinel — aerospace console skin */
+:root{color-scheme:dark;--qnx-void:#050507;--qnx-panel:#0F0F12;--qnx-line:rgba(255,255,255,.10);--qnx-blue:#52A8FF;--qnx-indigo:#6366F1;--qnx-green:#62C073}
+html{scroll-behavior:smooth;background:var(--qnx-void)}
+body{background:var(--qnx-void)!important;color:#f4f4f5!important;font-family:var(--font-sans),Inter,sans-serif}
+.sentinel-console{background:var(--qnx-void)!important;color:#f4f4f5!important;isolation:isolate}
+.sentinel-tubes-layer{position:fixed;inset:0;z-index:0;opacity:.19;pointer-events:none;overflow:hidden}
+.sentinel-tubes-layer>div,.sentinel-tubes-layer canvas{width:100%;height:100%}
+.sentinel-production-nav{position:sticky;top:0;z-index:50;min-height:72px;padding:12px clamp(16px,3vw,44px);background:rgba(5,5,7,.78);backdrop-filter:blur(12px);border-bottom:1px solid var(--qnx-line)}
+.sentinel-production-nav>a{font-family:var(--font-sans),Inter,sans-serif;font-size:20px;font-weight:650;letter-spacing:-.04em}
+.sentinel-nav-status{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap}
+.sentinel-status-chip{display:inline-flex;align-items:center;gap:7px;padding:7px 10px;border-radius:100px;background:#1F1F1F;color:#c4c4cc;font:10px var(--font-mono),monospace;white-space:nowrap}
+.sentinel-status-chip i,.sentinel-live-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.sentinel-dot-green,.sentinel-live-dot{background:#62C073;box-shadow:0 0 12px #62C07366}.sentinel-dot-blue{background:#52A8FF;box-shadow:0 0 12px #52A8FF66}.sentinel-dot-muted{background:#71717A}
+.sentinel-diagnostics-toggle{padding:8px 10px;border:1px solid var(--qnx-line);font:10px var(--font-mono),monospace;color:#aaa}
+.sentinel-diagnostics-toggle:hover{border-color:var(--qnx-blue);color:white}
+.sentinel-diagnostics-drawer{position:sticky;top:72px;z-index:45;padding:18px clamp(16px,3vw,44px);background:rgba(15,15,18,.97);border-bottom:1px solid var(--qnx-line);backdrop-filter:blur(12px)}
+.sentinel-section-kicker{font:10px var(--font-mono),monospace;letter-spacing:.16em;color:#8b8b96}
+.sentinel-diagnostics-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:12px}
+.sentinel-diagnostics-grid>div,.sentinel-register-grid>div{padding:12px;border:1px solid var(--qnx-line);background:#09090c;min-width:0}
+.sentinel-diagnostics-grid small,.sentinel-register-grid small{display:block;color:#85858f;font:9px var(--font-mono),monospace;letter-spacing:.12em;margin-bottom:7px}
+.sentinel-diagnostics-grid strong,.sentinel-register-grid strong{display:block;color:#e4e4e7;font:11px var(--font-mono),monospace;overflow-wrap:anywhere}
+.sentinel-production-hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;padding:clamp(110px,16vh,190px) clamp(20px,7vw,100px) 74px;border-bottom:1px solid var(--qnx-line);background:radial-gradient(ellipse at 72% 36%,rgba(99,102,241,.16),transparent 36%),radial-gradient(ellipse at 22% 58%,rgba(82,168,255,.10),transparent 35%)}
+.sentinel-hero-scrim{position:absolute;inset:0;background:linear-gradient(to top,#050507 10%,rgba(5,5,7,.22) 60%,transparent 90%);pointer-events:none}
+.sentinel-production-hero-inner{position:relative;z-index:2;max-width:1000px}
+.sentinel-production-hero h1{font:600 clamp(58px,10.5vw,150px)/.88 var(--font-sans),Inter,sans-serif;letter-spacing:-.075em;margin:30px 0 24px}
+.sentinel-production-hero h1 span{color:#a1a1aa}
+.sentinel-production-hero p{max-width:580px;color:#a1a1aa;font-size:clamp(14px,1.5vw,18px);line-height:1.7}
+.sentinel-hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.sentinel-square-button,.sentinel-outline-button{min-height:48px;padding:0 18px;display:inline-flex;align-items:center;justify-content:space-between;gap:28px;border:1px solid #fff;border-radius:0;font:600 10px var(--font-mono),monospace;letter-spacing:.07em}
+.sentinel-square-button{background:#fff;color:#121212}.sentinel-square-button:hover{background:#dfe9f8}
+.sentinel-outline-button{background:rgba(5,5,7,.5);color:#f4f4f5;border-color:var(--qnx-line)}
+.sentinel-outline-button:hover{border-color:var(--qnx-blue)}
+.sentinel-hero-index{position:absolute;z-index:2;right:clamp(20px,7vw,100px);bottom:28px;left:clamp(20px,7vw,100px);display:flex;justify-content:space-between;color:#73737d;font:9px var(--font-mono),monospace;letter-spacing:.12em}
+.sentinel-subsystems{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid var(--qnx-line);background:#050507}
+.sentinel-subsystem{padding:22px clamp(14px,2vw,28px) 26px;border-right:1px solid var(--qnx-line);min-width:0}
+.sentinel-subsystem:last-child{border-right:0}
+.sentinel-subsystem-top{display:flex;justify-content:space-between;color:#777782;font:9px var(--font-mono),monospace;letter-spacing:.12em}
+.sentinel-track-canvas{display:block;width:100%;height:74px;margin:18px 0}
+.sentinel-subsystem h3{font:500 17px var(--font-sans),Inter,sans-serif;margin:0 0 7px}
+.sentinel-subsystem p{font:10px/1.6 var(--font-mono),monospace;color:#777782}
+.sentinel-console #router-workbench{position:relative;z-index:2;max-width:1500px;padding:60px clamp(16px,4vw,56px);scroll-margin-top:78px}
+.sentinel-console #router-workbench .bg-slate-900,.sentinel-console #router-workbench .bg-slate-950{background:#0F0F12!important}
+.sentinel-console #router-workbench .border-slate-800,.sentinel-console #router-workbench .border-slate-700{border-color:var(--qnx-line)!important}
+.sentinel-console #router-workbench .rounded-lg,.sentinel-console #router-workbench .rounded-md{border-radius:0!important}
+.sentinel-console #router-workbench .text-cyan-400,.sentinel-console #router-workbench .text-cyan-300{color:#52A8FF!important}
+.sentinel-console #router-workbench .text-emerald-400{color:#62C073!important}
+.sentinel-console #router-workbench input,.sentinel-console #router-workbench textarea,.sentinel-console #router-workbench select{background:#08080b!important;color:#f4f4f5!important;border:1px solid var(--qnx-line)!important;border-radius:0!important;font-family:var(--font-mono),monospace}
+.sentinel-console #router-workbench button{border-radius:0}
+.sentinel-console #router-workbench .sentinel-locale-selector button{font:10px var(--font-mono),monospace;border-radius:0!important}
+.sentinel-usb-bridge{position:relative;z-index:2;padding:clamp(70px,9vw,120px) clamp(20px,7vw,100px);border-top:1px solid var(--qnx-line);background:linear-gradient(180deg,#050507,#09090e)}
+.sentinel-usb-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(30px,7vw,100px);align-items:center;margin-top:32px}
+.sentinel-usb-layout h2{font:600 clamp(38px,6vw,76px)/.95 var(--font-sans),Inter,sans-serif;letter-spacing:-.065em;margin:20px 0}
+.sentinel-usb-layout h2 span{color:#8b8b96}
+.sentinel-usb-layout p{max-width:38ch;color:#92929b;line-height:1.7;font-size:14px;margin-bottom:28px}
+.sentinel-port-panel{position:relative;min-height:330px;padding:20px;border:1px solid var(--qnx-line);background:#0F0F12;overflow:hidden}
+.sentinel-port-head{display:flex;justify-content:space-between;gap:10px;color:#8b8b96;font:9px var(--font-mono),monospace;letter-spacing:.1em}
+.sentinel-usb-connector{position:absolute;top:86px;left:12%;display:flex;align-items:center;background:none;border:0;padding:0;cursor:pointer;z-index:3}
+.sentinel-usb-cable{display:block;width:clamp(100px,15vw,220px);height:9px;border-radius:20px;background:repeating-linear-gradient(90deg,#6366F1 0 4px,#20202a 4px 7px);box-shadow:0 0 18px #6366F133}
+.sentinel-usb-tip{width:28px;height:24px;border:2px solid #aeb6c7;border-radius:5px;background:linear-gradient(90deg,#6d7280,#d8dce5);box-shadow:0 0 12px #52a8ff55}
+.sentinel-port-socket{position:absolute;right:12%;top:79px;width:54px;height:38px;border:2px solid #71717a;border-radius:7px;background:#050507;display:grid;place-items:center;box-shadow:inset 0 0 15px #000}
+.sentinel-port-socket span{width:28px;height:9px;border-radius:4px;background:#222}
+.sentinel-port-panel.is-connected .sentinel-port-socket{border-color:#62C073;box-shadow:0 0 24px #62c07355}
+.sentinel-port-panel.is-connected .sentinel-usb-connector{left:auto;right:13%;transform:rotate(180deg)}
+.sentinel-signal-trace{position:absolute;top:142px;left:12%;right:12%;height:1px;background:#252530;overflow:hidden}
+.sentinel-signal-trace i{display:block;width:100%;height:100%;background:linear-gradient(90deg,#6366F1,#52A8FF,#62C073);transform-origin:left;transition:transform .7s}
+.sentinel-register-grid{position:absolute;left:20px;right:20px;bottom:52px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.sentinel-bridge-note{position:absolute;left:20px;bottom:10px;font:9px var(--font-mono),monospace;color:#686873}
+.sentinel-production-footer{position:relative;z-index:2;background:#050507!important;border-color:var(--qnx-line)!important;color:#71717a!important}
+.sentinel-travelling-cable{position:fixed;z-index:40;left:-150px;top:35vh;width:150px;height:auto;pointer-events:none;filter:drop-shadow(0 0 8px #6366F166);transition:opacity .2s}
+@media(max-width:1050px){.sentinel-nav-status{display:none}.sentinel-diagnostics-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.sentinel-production-nav{min-height:60px}.sentinel-production-hero{min-height:82svh;padding-bottom:72px}.sentinel-production-hero h1{font-size:clamp(54px,15vw,90px)}.sentinel-subsystems{grid-template-columns:repeat(2,minmax(0,1fr))}.sentinel-subsystem:nth-child(2){border-right:0}.sentinel-subsystem:nth-child(-n+2){border-bottom:1px solid var(--qnx-line)}.sentinel-usb-layout{grid-template-columns:1fr}.sentinel-register-grid{grid-template-columns:repeat(2,minmax(0,1fr));bottom:45px}.sentinel-port-panel{min-height:390px}}
+@media(max-width:440px){.sentinel-subsystems{grid-template-columns:1fr}.sentinel-subsystem{border-right:0;border-bottom:1px solid var(--qnx-line)}.sentinel-diagnostics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sentinel-production-nav{padding-inline:14px}.sentinel-production-nav>a{font-size:17px}.sentinel-hero-actions{flex-direction:column;align-items:stretch}}
+@media(prefers-reduced-motion:reduce){.sentinel-travelling-cable{display:none!important}html{scroll-behavior:auto}}
