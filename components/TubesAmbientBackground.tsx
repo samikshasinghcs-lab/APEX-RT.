@@ -16,7 +16,6 @@ export default function TubesAmbientBackground() {
     const init = async () => {
       try {
         // Load the same lightweight cursor-tubes build used by the reference.
-        // @ts-expect-error Remote ESM module is intentionally loaded at runtime.
         const module = await import(
           /* webpackIgnore: true */ 'https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js'
         );
