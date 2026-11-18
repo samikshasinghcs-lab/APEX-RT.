@@ -552,9 +552,37 @@ export default function SentinelConsole() {
           </div>
         </header>
 
+        {diagnosticsOpen && (
+          <aside className="sentinel-diagnostics-drawer" aria-label="System diagnostics">
+            <div className="sentinel-section-kicker">SYSTEM DIAGNOSTICS / LIVE RUNTIME</div>
+            <div className="sentinel-diagnostics-grid">
+              <div><small>FIRESTORE</small><strong>{runtime.firestoreOnline ? 'CONNECTED' : 'OFFLINE'}</strong></div>
+              <div><small>APP CHECK</small><strong>{runtime.appCheckLabel}</strong></div>
+              <div><small>REMOTE CONFIG</small><strong>{runtime.remoteConfigSource}</strong></div>
+              <div><small>FIREBASE AI</small><strong>{runtime.firebaseAiReady ? 'READY' : 'UNAVAILABLE'}</strong></div>
+              <div><small>GEMINI NANO</small><strong>{runtime.nanoAvailability?.status ?? 'PROBING'}</strong></div>
+              <div><small>GPU / WEBGL</small><strong>BROWSER RENDERER</strong></div>
+            </div>
+          </aside>
+        )}
+        <section className="sentinel-production-hero">
+          <div className="sentinel-hero-scrim" />
+          <div className="sentinel-production-hero-inner">
+            <div className="sentinel-section-kicker">QNX NEUTRINO / EMBEDDED INTELLIGENCE SYSTEM</div>
+            <h1>Intelligence<br/><span>after impact.</span></h1>
+            <p>Multilingual crash-dump forensics, privacy-first inference routing, and verifiable evidence for safety-critical systems.</p>
+            <div className="sentinel-hero-actions">
+              <button type="button" className="sentinel-square-button" onClick={() => document.getElementById('router-workbench')?.scrollIntoView({behavior:'smooth'})}>OPEN DIAGNOSTIC ROUTER <span>↓</span></button>
+              <button type="button" className="sentinel-outline-button" onClick={() => switchWorkbenchView('ledger')}>VIEW EVIDENCE LEDGER <span>↗</span></button>
+            </div>
+          </div>
+          <div className="sentinel-hero-index"><span>SYS / 01</span><span>EDGE × CLOUD / 2026</span></div>
+        </section>
+        <SubsystemGrid />
+
         {/* Main Focused Workbench Viewport */}
         <main
-          id="top"
+          id="router-workbench"
           className="flex-1 max-w-[1400px] w-full mx-auto px-6 py-6 space-y-6"
         >
         {/* View 1: Post-Mortem Log Triage & Consensus Audit */}
