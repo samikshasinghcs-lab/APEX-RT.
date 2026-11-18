@@ -445,3 +445,13 @@ body{overflow-x:hidden}
 @media(max-width:1100px){.sentinel-nav-status{display:none!important}.sentinel-production-nav nav{display:none!important}}
 @media(max-width:760px){.sentinel-production-nav{top:10px;margin-top:10px;max-width:calc(100% - 20px);padding:8px 10px 8px 16px}.sentinel-production-hero{min-height:78svh;padding:75px 16px}.sentinel-production-hero h1{white-space:normal;font-size:clamp(48px,12vw,76px)}.sentinel-production-hero p{white-space:normal;max-width:34ch}.sentinel-subsystems{grid-template-columns:repeat(2,minmax(0,1fr));width:calc(100% - 24px);gap:8px}.sentinel-subsystem{border:0!important;border-radius:18px!important;padding:14px}.sentinel-console #router-workbench{padding-inline:12px}.sentinel-hero-actions{align-items:center}.sentinel-hero-actions button{width:100%;max-width:330px}}
 @media(max-width:420px){.sentinel-subsystems{grid-template-columns:1fr}.sentinel-production-hero h1{font-size:48px}}
+
+
+/* Final monochrome pass — retain semantic states, remove accent hues */
+.sentinel-console .text-cyan-400,.sentinel-console .text-cyan-300,.sentinel-console .text-cyan-200,.sentinel-console .text-emerald-400,.sentinel-console .text-emerald-300,.sentinel-console .text-amber-400,.sentinel-console .text-amber-300,.sentinel-console .text-rose-400,.sentinel-console .text-red-400,.sentinel-console .text-green-400,.sentinel-console .text-blue-400{color:rgba(255,255,255,.88)!important}
+.sentinel-console .bg-cyan-500,.sentinel-console .bg-cyan-600,.sentinel-console .bg-emerald-500,.sentinel-console .bg-amber-500,.sentinel-console .bg-rose-500{background:#fff!important;color:#000!important}
+.sentinel-console .border-cyan-400,.sentinel-console .border-cyan-500,.sentinel-console .border-emerald-500,.sentinel-console .border-amber-500{border-color:rgba(255,255,255,.65)!important}
+.sentinel-console .sentinel-status-chip i{background:#fff!important;box-shadow:0 0 0 2px rgba(255,255,255,.12)!important}
+.sentinel-console .sentinel-production-hero h1{font-family:var(--font-instrument),serif!important}
+.sentinel-console .sentinel-subsystem canvas{visibility:hidden}
+.sentinel-console .sentinel-trace-stream,.sentinel-console .sentinel-diagnostics-drawer,.sentinel-console .sentinel-port-panel,.sentinel-console .sentinel-subsystem{color:#fff}
