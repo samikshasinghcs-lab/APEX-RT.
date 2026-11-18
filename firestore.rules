@@ -1,0 +1,219 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Pillar 1: Global Safety Net (Default Deny)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global Primitives
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedUser() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isAdmin() {
+      return isVerifiedUser() && (
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid)) ||
+        request.auth.token.email == 'singhsameeksha393@gmail.com'
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() >= 1 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Validation Blueprint: BlackBoxEntry
+    function isValidBlackBoxEntry(data) {
+      return data.keys().hasAll([
+        'ownerId',
+        'sequenceIndex',
+        'eventType',
+        'summary',
+        'prevHash',
+        'entryHash',
+        'locale',
+        'routeTarget',
+        'consensusScore',
+        'createdAt'
+      ]) &&
+      data.keys().hasOnly([
+        'ownerId',
+        'sequenceIndex',
+        'eventType',
+        'summary',
+        'prevHash',
+        'entryHash',
+        'locale',
+        'routeTarget',
+        'consensusScore',
+        'createdAt'
+      ]) &&
+      data.ownerId is string &&
+      data.ownerId.size() >= 1 &&
+      data.ownerId.size() <= 128 &&
+      data.ownerId.matches('^[a-zA-Z0-9_\\-]+$') &&
+      data.ownerId == request.auth.uid &&
+      data.sequenceIndex is int &&
+      data.sequenceIndex >= 0 &&
+      data.sequenceIndex <= 1000000 &&
+      data.eventType is string &&
+      data.eventType.size() >= 1 &&
+      data.eventType.size() <= 64 &&
+      data.eventType in [
+        'TELEMETRY_SNAPSHOT',
+        'PII_REDACTION',
+        'ROUTING_DECISION',
+        'CONSENSUS_AUDIT',
+        'VISION_INSPECTION'
+      ] &&
+      data.summary is string &&
+      data.summary.size() >= 1 &&
+      data.summary.size() <= 500 &&
+      data.prevHash is string &&
+      data.prevHash.size() == 64 &&
+      data.prevHash.matches('^[a-f0-9]{64}$') &&
+      data.entryHash is string &&
+      data.entryHash.size() == 64 &&
+      data.entryHash.matches('^[a-f0-9]{64}$') &&
+      data.locale is string &&
+      data.locale.size() >= 2 &&
+      data.locale.size() <= 16 &&
+      data.routeTarget is string &&
+      data.routeTarget.size() >= 1 &&
+      data.routeTarget.size() <= 32 &&
+      data.routeTarget in ['PREFER_ON_DEVICE', 'PREFER_IN_CLOUD'] &&
+      data.consensusScore is number &&
+      data.consensusScore >= 0 &&
+      data.consensusScore <= 100 &&
+      data.createdAt is timestamp;
+    }
+
+    // Validation Blueprint: DiagnosticAudit
+    function isValidDiagnosticAudit(data) {
+      return data.keys().hasAll([
+        'ownerId',
+        'locale',
+        'experimentArm',
+        'routeTarget',
+        'faultCode',
+        'severity',
+        'edgeTtftMs',
+        'cloudTtftMs',
+        'consensusScore',
+        'remediation',
+        'status',
+        'createdAt',
+        'updatedAt'
+      ]) &&
+      data.keys().hasOnly([
+        'ownerId',
+        'locale',
+        'experimentArm',
+        'routeTarget',
+        'faultCode',
+        'severity',
+        'edgeTtftMs',
+        'cloudTtftMs',
+        'consensusScore',
+        'remediation',
+        'status',
+        'createdAt',
+        'updatedAt'
+      ]) &&
+      data.ownerId is string &&
+      data.ownerId.size() >= 1 &&
+      data.ownerId.size() <= 128 &&
+      data.ownerId.matches('^[a-zA-Z0-9_\\-]+$') &&
+      data.ownerId == request.auth.uid &&
+      data.locale is string &&
+      data.locale.size() >= 2 &&
+      data.locale.size() <= 16 &&
+      data.experimentArm is string &&
+      data.experimentArm.size() >= 1 &&
+      data.experimentArm.size() <= 32 &&
+      data.experimentArm in ['BALANCED_HYBRID', 'STRICT_EDGE_SAVER'] &&
+      data.routeTarget is string &&
+      data.routeTarget.size() >= 1 &&
+      data.routeTarget.size() <= 32 &&
+      data.routeTarget in ['PREFER_ON_DEVICE', 'PREFER_IN_CLOUD'] &&
+      data.faultCode is string &&
+      data.faultCode.size() >= 1 &&
+      data.faultCode.size() <= 64 &&
+      data.severity is string &&
+      data.severity.size() >= 1 &&
+      data.severity.size() <= 32 &&
+      data.severity in ['NOMINAL', 'WARNING', 'CRITICAL', 'SAFE_STATE_LOCK'] &&
+      data.edgeTtftMs is number &&
+      data.edgeTtftMs >= 0 &&
+      data.edgeTtftMs <= 60000 &&
+      data.cloudTtftMs is number &&
+      data.cloudTtftMs >= 0 &&
+      data.cloudTtftMs <= 60000 &&
+      data.consensusScore is number &&
+      data.consensusScore >= 0 &&
+      data.consensusScore <= 100 &&
+      data.remediation is string &&
+      data.remediation.size() >= 1 &&
+      data.remediation.size() <= 1000 &&
+      data.status is string &&
+      data.status.size() >= 1 &&
+      data.status.size() <= 32 &&
+      data.status in ['OPEN', 'ACKNOWLEDGED', 'RESOLVED'] &&
+      data.createdAt is timestamp &&
+      data.updatedAt is timestamp;
+    }
+
+    match /admins/{adminId} {
+      allow get: if isVerifiedUser() && isValidId(adminId) && request.auth.uid == adminId;
+      allow list, create, update, delete: if false;
+    }
+
+    // Collection 1: Append-Only SHA-256 Flight Recorder
+    match /black_box_entries/{entryId} {
+      allow get: if isVerifiedUser() && isValidId(entryId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedUser() && (existing().ownerId == request.auth.uid || isAdmin());
+      allow create: if isVerifiedUser() &&
+        isValidId(entryId) &&
+        isValidBlackBoxEntry(incoming()) &&
+        incoming().createdAt == request.time;
+      allow update, delete: if false;
+    }
+
+    // Collection 2: Speculative Edge-vs-Cloud Diagnostic Audits
+    match /diagnostic_audits/{auditId} {
+      allow get: if isVerifiedUser() && isValidId(auditId) && (existing().ownerId == request.auth.uid || isAdmin());
+      allow list: if isVerifiedUser() && (existing().ownerId == request.auth.uid || isAdmin());
+      allow create: if isVerifiedUser() &&
+        isValidId(auditId) &&
+        isValidDiagnosticAudit(incoming()) &&
+        incoming().status == 'OPEN' &&
+        incoming().createdAt == request.time &&
+        incoming().updatedAt == request.time;
+      allow update: if isVerifiedUser() &&
+        isValidId(auditId) &&
+        isValidDiagnosticAudit(incoming()) && (
+          isAdmin() || (
+            existing().ownerId == request.auth.uid &&
+            existing().status != 'RESOLVED' &&
+            incoming().ownerId == existing().ownerId &&
+            incoming().createdAt == existing().createdAt &&
+            incoming().updatedAt == request.time &&
+            incoming().diff(existing()).affectedKeys().hasOnly(['status', 'updatedAt'])
+          )
+        );
+      allow delete: if isVerifiedUser() && isValidId(auditId) && isAdmin();
+    }
+  }
+}

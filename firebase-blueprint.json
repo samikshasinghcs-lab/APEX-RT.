@@ -1,0 +1,218 @@
+{
+  "entities": {
+    "BlackBoxEntry": {
+      "title": "BlackBoxEntry",
+      "description": "Tamper-evident SHA-256 hash-chained flight recorder entry persisted per authenticated operator.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "description": "UID of the authenticated operator who recorded the entry.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "sequenceIndex": {
+          "type": "integer",
+          "description": "Monotonically increasing index in the hash chain."
+        },
+        "eventType": {
+          "type": "string",
+          "description": "Category of the recorded forensic event.",
+          "enum": [
+            "TELEMETRY_SNAPSHOT",
+            "PII_REDACTION",
+            "ROUTING_DECISION",
+            "CONSENSUS_AUDIT",
+            "VISION_INSPECTION"
+          ],
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "summary": {
+          "type": "string",
+          "description": "PII-scrubbed forensic summary of the event.",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "prevHash": {
+          "type": "string",
+          "description": "SHA-256 hex digest of the preceding chain block.",
+          "minLength": 64,
+          "maxLength": 64,
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "entryHash": {
+          "type": "string",
+          "description": "SHA-256 hex digest of the current chain block.",
+          "minLength": 64,
+          "maxLength": 64,
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "locale": {
+          "type": "string",
+          "description": "ISO language code for the diagnostic payload.",
+          "minLength": 2,
+          "maxLength": 16
+        },
+        "routeTarget": {
+          "type": "string",
+          "description": "Selected hybrid execution target.",
+          "enum": [
+            "PREFER_ON_DEVICE",
+            "PREFER_IN_CLOUD"
+          ],
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "consensusScore": {
+          "type": "number",
+          "description": "Edge-vs-Cloud agreement percentage (0 to 100)."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when the block was committed."
+        }
+      },
+      "required": [
+        "ownerId",
+        "sequenceIndex",
+        "eventType",
+        "summary",
+        "prevHash",
+        "entryHash",
+        "locale",
+        "routeTarget",
+        "consensusScore",
+        "createdAt"
+      ]
+    },
+    "DiagnosticAudit": {
+      "title": "DiagnosticAudit",
+      "description": "Hybrid Edge-First / Cloud-Audit diagnostic record with consensus telemetry.",
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "description": "UID of the authenticated operator.",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "locale": {
+          "type": "string",
+          "description": "Detected language code.",
+          "minLength": 2,
+          "maxLength": 16
+        },
+        "experimentArm": {
+          "type": "string",
+          "description": "Active Remote Config experiment arm.",
+          "enum": [
+            "BALANCED_HYBRID",
+            "STRICT_EDGE_SAVER"
+          ],
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "routeTarget": {
+          "type": "string",
+          "description": "Hybrid router execution path.",
+          "enum": [
+            "PREFER_ON_DEVICE",
+            "PREFER_IN_CLOUD"
+          ],
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "faultCode": {
+          "type": "string",
+          "description": "Extracted QNX / ISO automotive fault code.",
+          "minLength": 1,
+          "maxLength": 64
+        },
+        "severity": {
+          "type": "string",
+          "description": "Fault severity classification.",
+          "enum": [
+            "NOMINAL",
+            "WARNING",
+            "CRITICAL",
+            "SAFE_STATE_LOCK"
+          ],
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "edgeTtftMs": {
+          "type": "number",
+          "description": "On-device Gemini Nano time-to-first-token in milliseconds."
+        },
+        "cloudTtftMs": {
+          "type": "number",
+          "description": "Cloud Gemini time-to-first-token in milliseconds."
+        },
+        "consensusScore": {
+          "type": "number",
+          "description": "Edge-vs-Cloud consensus percentage (0 to 100)."
+        },
+        "remediation": {
+          "type": "string",
+          "description": "Recommended engineering remediation steps.",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "status": {
+          "type": "string",
+          "description": "Audit lifecycle state.",
+          "enum": [
+            "OPEN",
+            "ACKNOWLEDGED",
+            "RESOLVED"
+          ],
+          "minLength": 1,
+          "maxLength": 32
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server creation timestamp."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server update timestamp."
+        }
+      },
+      "required": [
+        "ownerId",
+        "locale",
+        "experimentArm",
+        "routeTarget",
+        "faultCode",
+        "severity",
+        "edgeTtftMs",
+        "cloudTtftMs",
+        "consensusScore",
+        "remediation",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/black_box_entries/{entryId}": {
+      "schema": {
+        "$ref": "#/entities/BlackBoxEntry"
+      },
+      "description": "Append-only cryptographic SHA-256 flight recorder blocks owned by each operator."
+    },
+    "/diagnostic_audits/{auditId}": {
+      "schema": {
+        "$ref": "#/entities/DiagnosticAudit"
+      },
+      "description": "Speculative Edge-First / Cloud-Audit diagnostic records owned by each operator."
+    }
+  }
+}

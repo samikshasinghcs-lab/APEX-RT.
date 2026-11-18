@@ -1,0 +1,6 @@
+{
+  "name": "QNX Sentinel Hybrid AI Telemetry & Forensics",
+  "description": "ASIL-D-inspired embedded QNX telemetry forensics console with Firebase Hybrid AI routing, Top-10 non-English automotive language diagnostics, Multimodal Vision Fault Inspection, Speculative Edge-vs-Cloud Consensus Gate, and SHA-256 Black-Box Flight Recorder.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
