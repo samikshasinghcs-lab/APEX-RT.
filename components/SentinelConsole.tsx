@@ -53,15 +53,11 @@ import {
   flushOfflineForensicsQueue,
   OfflineForensicQueueItem,
 } from '@/lib/offline-queue';
-import {
-  GpuFingerprintProfile,
-  triggerSpatialUiFeedback,
-} from '@/lib/gpu-render-engine';
+import { triggerSpatialUiFeedback } from '@/lib/gpu-render-engine';
 import {
   auth,
   db,
   isFirebaseConfigured,
-  missingFirebaseEnvVars,
   OperationType,
   handleFirestoreError,
   testFirestoreConnection,
@@ -71,9 +67,6 @@ import {
   signInWithGoogleOperator,
   signOutOperator,
 } from '@/lib/firebase-client';
-import GpuTelemetryCanvasBridge, {
-  GpuCanvasBridgeHandle,
-} from './GpuTelemetryCanvasBridge';
 import VoiceDiagnosticsButton from './VoiceDiagnosticsButton';
 import MultimodalVisionInspector, {
   VisionInspectionOutput,
@@ -86,20 +79,6 @@ export type WorkbenchView = 'triage' | 'vision' | 'ledger' | 'eval_qnx';
 
 export default function SentinelConsole() {
   const [activeView, setActiveView] = useState<WorkbenchView>('triage');
-
-  // 3-Layer Frontend Rendering Engine State (GPU Fingerprint, NDC Kinematics, Spatial Audio DSP)
-  const gpuBridgeRef = useRef<GpuCanvasBridgeHandle | null>(null);
-  const [gpuProfile, setGpuProfile] = useState<GpuFingerprintProfile | null>(
-    null
-  );
-  const [kinematicsSample, setKinematicsSample] = useState<{
-    ndcX: number;
-    ndcY: number;
-    speed: number;
-    fpsEstimate: number;
-  }>({ ndcX: 0, ndcY: 0, speed: 0, fpsEstimate: 60 });
-  const [audioDspEnabled, setAudioDspEnabled] = useState<boolean>(false);
-  const [gpuExportSuccess, setGpuExportSuccess] = useState<boolean>(false);
 
   const runtime = useSentinelRuntime();
   const { currentUser, experimentArm, setExperimentArm, simulateOfflineMode,
@@ -196,9 +175,9 @@ export default function SentinelConsole() {
   const switchWorkbenchView = useCallback(
     (nextView: WorkbenchView) => {
       triggerSpatialUiFeedback({
-        ndcX: kinematicsSample.ndcX,
+        ndcX: 0,
         frequencyHz: 680,
-        enableAudio: audioDspEnabled,
+        enableAudio: false,
         enableHaptics: true,
       });
       const docWithTransition = document as Document & {
@@ -212,22 +191,8 @@ export default function SentinelConsole() {
         setActiveView(nextView);
       }
     },
-    [audioDspEnabled, kinematicsSample.ndcX]
+    [false, 0]
   );
-
-  const handleExportGpuFrame = useCallback(async () => {
-    triggerSpatialUiFeedback({
-      ndcX: kinematicsSample.ndcX,
-      frequencyHz: 820,
-      enableAudio: audioDspEnabled,
-      enableHaptics: true,
-    });
-    const ok = await gpuBridgeRef.current?.exportShaderFramePng();
-    if (ok) {
-      setGpuExportSuccess(true);
-      window.setTimeout(() => setGpuExportSuccess(false), 2000);
-    }
-  }, [audioDspEnabled, kinematicsSample.ndcX]);
 
   const appendBlockToChain = useCallback(
     async (params: {
@@ -307,9 +272,9 @@ export default function SentinelConsole() {
 
   const handleSelectLanguagePreset = (locale: SupportedLocale) => {
     triggerSpatialUiFeedback({
-      ndcX: kinematicsSample.ndcX,
+      ndcX: 0,
       frequencyHz: 540,
-      enableAudio: audioDspEnabled,
+      enableAudio: false,
       enableHaptics: true,
     });
     const sample = SUPPORTED_LANGUAGES[locale].defaultSamplePrompt;
@@ -331,9 +296,9 @@ export default function SentinelConsole() {
 
   const handleToggleExperimentArm = (nextArm: ExperimentArm) => {
     triggerSpatialUiFeedback({
-      ndcX: kinematicsSample.ndcX,
+      ndcX: 0,
       frequencyHz: 720,
-      enableAudio: audioDspEnabled,
+      enableAudio: false,
       enableHaptics: true,
     });
     setExperimentArm(nextArm);
@@ -349,9 +314,9 @@ export default function SentinelConsole() {
 
   const handleToggleOfflineMode = () => {
     triggerSpatialUiFeedback({
-      ndcX: kinematicsSample.ndcX,
+      ndcX: 0,
       frequencyHz: 480,
-      enableAudio: audioDspEnabled,
+      enableAudio: false,
       enableHaptics: true,
     });
     const nextOffline = !simulateOfflineMode;
@@ -386,9 +351,9 @@ export default function SentinelConsole() {
 
   const handleExecuteTriage = async () => {
     triggerSpatialUiFeedback({
-      ndcX: kinematicsSample.ndcX,
+      ndcX: 0,
       frequencyHz: 880,
-      enableAudio: audioDspEnabled,
+      enableAudio: false,
       enableHaptics: true,
     });
     setIsTriaging(true);
@@ -556,12 +521,6 @@ export default function SentinelConsole() {
   return (
     <div className="sentinel-console min-h-screen bg-[#07090E] text-slate-100 flex flex-col relative">
       {/* Layer 2: Fixed WebGL2 GLSL Telemetry Shader Canvas (z-0, pointer-events-none) */}
-      <GpuTelemetryCanvasBridge
-        ref={gpuBridgeRef}
-        severity={routingDecision.safetyCheck.severity}
-        onHardwareProfileReady={setGpuProfile}
-        onKinematicsSample={setKinematicsSample}
-      />
 
       {/* Layer 3: Semantic DOM Workbench Layer (relative z-10) */}
       <div className="relative z-10 flex flex-col min-h-screen">
@@ -651,27 +610,6 @@ export default function SentinelConsole() {
             )}
           </div>
         </header>
-
-        {/* Missing NEXT_PUBLIC_FIREBASE_* Config Banner (Shown on a fresh clone if .env.local is unset) */}
-        {!isFirebaseConfigured && (
-          <div
-            role="alert"
-            data-testid="missing-firebase-config-banner"
-            className="bg-rose-950/80 border-b border-rose-600 px-6 py-3 text-xs text-rose-100"
-          >
-            <div className="max-w-[1400px] mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono">
-              <div>
-                <strong>Missing Firebase Configuration:</strong> Copy{' '}
-                <code>.env.example</code> to <code>.env.local</code> and set:{' '}
-                {missingFirebaseEnvVars.join(', ')}
-              </div>
-              <span className="text-rose-300">
-                Local PII Scrubber, Deterministic Baseline &amp; SHA-256 Web
-                Crypto remain active.
-              </span>
-            </div>
-          </div>
-        )}
 
         {/* Main Focused Workbench Viewport */}
         <main
