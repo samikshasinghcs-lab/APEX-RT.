@@ -278,3 +278,10 @@
  .sentinel-landing .sentinel-nav>div.sentinel-nav-links.is-open a{color:var(--ink)}
 }
 @media(prefers-reduced-motion:reduce){.sentinel-landing .sentinel-travelling-usb{display:none}}
+
+
+.sentinel-landing .sentinel-close:after{content:"Q N X   S E N T I N E L";display:block;white-space:nowrap;overflow:hidden;text-align:justify;font:500 clamp(54px,11vw,160px)/.72 var(--font-display),Georgia,serif;letter-spacing:-.055em;color:var(--ink);transform:translateY(18%);margin:64px -6vw -30px}
+.sentinel-landing .sentinel-port span{background:transparent;border:1px solid var(--accent);width:8px;height:8px}
+.sentinel-landing .sentinel-usb-panel.is-plugged .sentinel-port span{background:var(--accent)}
+.sentinel-landing .sentinel-event-row.is-focus .sentinel-timeline i{background:var(--accent)}
+.sentinel-landing .sentinel-engine-canvas{filter:grayscale(1);opacity:.8}
