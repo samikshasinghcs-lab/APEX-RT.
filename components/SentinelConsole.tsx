@@ -75,7 +75,6 @@ import MultimodalVisionInspector, {
 import MultilingualEvalPanel from './MultilingualEvalPanel';
 import BlackBoxRecorderPanel from './BlackBoxRecorderPanel';
 import QnxTargetViewer from './QnxTargetViewer';
-import TubesBackground from './TubesBackground';
 import { SubsystemGrid, UsbBridge, TravellingDebugCable } from './SentinelVisualLayers';
 
 export type WorkbenchView = 'triage' | 'vision' | 'ledger' | 'eval_qnx';
