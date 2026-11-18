@@ -80,9 +80,14 @@ export function UsbBridge() {
   const [connected, setConnected] = useState(false);
   const [progress, setProgress] = useState(0);
   useEffect(() => {
-    const connectFromCable = () => setConnected(true);
+    const connectFromCable = () => { setProgress(0); setConnected(true); };
+    const disconnectFromCable = () => { setProgress(0); setConnected(false); };
     window.addEventListener('sentinel-usb-connect', connectFromCable);
-    return () => window.removeEventListener('sentinel-usb-connect', connectFromCable);
+    window.addEventListener('sentinel-usb-disconnect', disconnectFromCable);
+    return () => {
+      window.removeEventListener('sentinel-usb-connect', connectFromCable);
+      window.removeEventListener('sentinel-usb-disconnect', disconnectFromCable);
+    };
   }, []);
   useEffect(() => {
     if (!connected) return;
