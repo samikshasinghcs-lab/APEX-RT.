@@ -380,3 +380,68 @@ body{background:var(--qnx-void)!important;color:#f4f4f5!important;font-family:va
 .sentinel-trace-grid strong{font:600 11px var(--font-mono),monospace;color:#e4e4e7}
 .sentinel-trace-grid i{display:block;height:3px;background:linear-gradient(90deg,#52A8FF,#6366F1);box-shadow:0 0 9px #52a8ff55}
 @media(max-width:760px){.sentinel-trace-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+
+/* OBSERVE × QNX SENTINEL — liquid-glass visual language */
+:root{--observe-bg:#000;--observe-fg:#fff;--observe-glass:rgba(0,0,0,.10);color-scheme:dark}
+html,body{background:#000!important;color:#fff!important}
+body{overflow-x:hidden}
+.sentinel-console{position:relative;isolation:isolate;background:transparent!important;color:#fff!important;min-height:100vh}
+.sentinel-observe-video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom;z-index:0;pointer-events:none}
+.sentinel-tubes-layer{display:none!important}
+.sentinel-console>.relative.z-10{position:relative;z-index:2}
+.liquid-glass,.sentinel-production-nav,.sentinel-console .bg-slate-900,.sentinel-console .bg-slate-950,.sentinel-console .sentinel-trace-stream,.sentinel-console .sentinel-diagnostics-drawer,.sentinel-console .sentinel-port-panel,.sentinel-console .sentinel-usb-bridge,.sentinel-console .sentinel-subsystem,.sentinel-console .sentinel-register-grid>div,.sentinel-console .bg-slate-800{
+ background:rgba(0,0,0,.10)!important;background-blend-mode:luminosity;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:0!important;box-shadow:inset 0 1px 1px rgba(255,255,255,.10);position:relative;overflow:hidden
+}
+.liquid-glass::before,.sentinel-production-nav::before,.sentinel-console .bg-slate-900::before,.sentinel-console .bg-slate-950::before,.sentinel-console .sentinel-trace-stream::before,.sentinel-console .sentinel-diagnostics-drawer::before,.sentinel-console .sentinel-port-panel::before,.sentinel-console .sentinel-usb-bridge::before,.sentinel-console .sentinel-subsystem::before,.sentinel-console .sentinel-register-grid>div::before{
+ content:"";position:absolute;inset:0;border-radius:inherit;padding:1.4px;background:linear-gradient(180deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,.15) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.15) 80%,rgba(255,255,255,.45) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;z-index:0
+}
+.sentinel-production-nav{position:sticky;top:18px;z-index:50;max-width: min(1280px,calc(100% - 40px));margin:18px auto 0;padding:8px 10px 8px 24px;min-height:62px;border-radius:999px!important;display:flex;gap:20px}
+.sentinel-production-nav>a{display:flex;align-items:center;gap:9px;color:#fff;font:600 18px var(--font-sans),sans-serif;letter-spacing:-.035em}
+.sentinel-production-nav nav{gap:clamp(10px,1.8vw,24px);font-size:12px}
+.sentinel-production-nav nav button{color:rgba(255,255,255,.78)!important;font-weight:500}
+.sentinel-production-nav nav button:hover,.sentinel-production-nav nav button.text-cyan-400{color:#fff!important}
+.sentinel-nav-status{gap:6px;max-width:36vw}
+.sentinel-status-chip{background:rgba(255,255,255,.09)!important;color:rgba(255,255,255,.8)!important;border:1px solid rgba(255,255,255,.10);font-size:9px}
+.sentinel-dot-green,.sentinel-dot-blue,.sentinel-dot-muted{background:#fff!important;box-shadow:none!important}
+.sentinel-diagnostics-toggle{border-radius:999px!important;color:#fff!important;border:1px solid rgba(255,255,255,.22)!important;background:rgba(255,255,255,.06)!important}
+.sentinel-production-nav>div:last-child button{border-radius:999px!important;background:#fff!important;color:#000!important;border:0!important;padding:0 16px;min-height:40px;font-size:11px}
+.sentinel-production-hero{min-height:calc(100svh - 82px);align-items:center;justify-content:center;text-align:center;padding:90px 24px 110px;background:transparent!important;border:0}
+.sentinel-hero-scrim{display:none!important}
+.sentinel-production-hero-inner{max-width:1100px;margin:auto}
+.sentinel-production-hero-inner>.sentinel-section-kicker{color:rgba(255,255,255,.72);text-shadow:0 0 30px rgba(0,0,0,.32),0 1px 10px rgba(0,0,0,.2)}
+.sentinel-production-hero h1{font-family:var(--font-instrument),'Instrument Serif',serif;font-weight:400;font-size:clamp(50px,7.5vw,112px);line-height:1.03;letter-spacing:-.025em;white-space:nowrap;color:#fff;margin:22px 0 14px;text-shadow:0 0 72px rgba(0,0,0,.42),0 4px 28px rgba(0,0,0,.28)}
+.sentinel-production-hero h1 span,.sentinel-production-hero h1 em{color:#fff;font-style:italic}
+.sentinel-production-hero p{max-width:none;margin:0 auto 34px;color:rgba(255,255,255,.76);font-size:14px;line-height:1.6;white-space:nowrap;text-shadow:0 0 30px rgba(0,0,0,.32),0 1px 10px rgba(0,0,0,.2)}
+.sentinel-hero-actions{justify-content:center;margin-top:24px}
+.sentinel-square-button,.sentinel-outline-button{border-radius:999px!important;min-height:48px;padding:0 24px;font-family:var(--font-sans),sans-serif;font-size:12px;letter-spacing:0}
+.sentinel-square-button{background:#fff!important;color:#000!important;border:0!important}
+.sentinel-outline-button{background:rgba(0,0,0,.10)!important;color:#fff!important;border:0!important;backdrop-filter:blur(8px)}
+.sentinel-hero-index{display:none}
+.sentinel-subsystems{grid-template-columns:repeat(4,minmax(0,1fr));background:transparent;border:0;max-width:1280px;margin:0 auto 44px;width:calc(100% - 48px);gap:12px}
+.sentinel-subsystem{border:0!important;border-radius:24px!important;padding:18px 20px;background:rgba(0,0,0,.10)!important}
+.sentinel-subsystem-top,.sentinel-subsystem p{color:rgba(255,255,255,.62)!important}
+.sentinel-subsystem h3{color:#fff}
+.sentinel-track-canvas{opacity:.0;height:8px;margin:10px 0}
+.sentinel-console #router-workbench{max-width:1280px;padding:28px 24px 90px;scroll-margin-top:100px}
+.sentinel-console #router-workbench .bg-slate-900,.sentinel-console #router-workbench .bg-slate-950,.sentinel-console #router-workbench .sentinel-locale-selector button,.sentinel-console #router-workbench textarea,.sentinel-console #router-workbench input,.sentinel-console #router-workbench select{background:rgba(0,0,0,.16)!important;color:#fff!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:18px!important}
+.sentinel-console #router-workbench .rounded-lg,.sentinel-console #router-workbench .rounded-md,.sentinel-console #router-workbench .rounded{border-radius:24px!important}
+.sentinel-console #router-workbench button{border-radius:999px!important}
+.sentinel-console #router-workbench .sentinel-locale-selector button{font:11px var(--font-mono),monospace;padding:9px 14px!important}
+.sentinel-console #router-workbench .sentinel-locale-selector button[class*="bg-cyan-500"]{background:rgba(255,255,255,.18)!important;color:#fff!important;border-color:rgba(255,255,255,.65)!important;box-shadow:none}
+.sentinel-console #router-workbench .text-cyan-400,.sentinel-console #router-workbench .text-cyan-300,.sentinel-console #router-workbench .text-emerald-400,.sentinel-console #router-workbench .text-amber-400,.sentinel-console #router-workbench .text-rose-400{color:rgba(255,255,255,.88)!important}
+.sentinel-console #router-workbench .bg-cyan-500,.sentinel-console #router-workbench .bg-emerald-500{background:#fff!important;color:#000!important}
+.sentinel-console #router-workbench .border-slate-800,.sentinel-console #router-workbench .border-slate-700{border-color:rgba(255,255,255,.13)!important}
+.sentinel-trace-stream{border-radius:24px!important;background:rgba(0,0,0,.10)!important}
+.sentinel-trace-grid i{background:linear-gradient(90deg,rgba(255,255,255,.35),rgba(255,255,255,.9))!important;box-shadow:none}
+.sentinel-console .sentinel-usb-bridge{background:rgba(0,0,0,.1)!important;border-radius:28px 28px 0 0}
+.sentinel-console .sentinel-port-panel{border-radius:24px!important}
+.sentinel-console .sentinel-usb-cable{background:repeating-linear-gradient(90deg,#fff 0 4px,#555 4px 7px)!important;box-shadow:none}
+.sentinel-console .sentinel-usb-tip{border-color:#fff;background:linear-gradient(90deg,#777,#fff);box-shadow:none}
+.sentinel-console .sentinel-port-socket{border-color:#fff;box-shadow:none}
+.sentinel-console .sentinel-port-panel.is-connected .sentinel-port-socket{border-color:#fff;box-shadow:inset 0 0 16px rgba(255,255,255,.3)}
+.sentinel-production-footer{background:transparent!important;border-color:rgba(255,255,255,.15)!important;color:rgba(255,255,255,.55)!important}
+.sentinel-travelling-cable{filter:grayscale(1);opacity:.65}
+@media(max-width:1100px){.sentinel-nav-status{display:none!important}.sentinel-production-nav nav{display:none!important}}
+@media(max-width:760px){.sentinel-production-nav{top:10px;margin-top:10px;max-width:calc(100% - 20px);padding:8px 10px 8px 16px}.sentinel-production-hero{min-height:78svh;padding:75px 16px}.sentinel-production-hero h1{white-space:normal;font-size:clamp(48px,12vw,76px)}.sentinel-production-hero p{white-space:normal;max-width:34ch}.sentinel-subsystems{grid-template-columns:repeat(2,minmax(0,1fr));width:calc(100% - 24px);gap:8px}.sentinel-subsystem{border:0!important;border-radius:18px!important;padding:14px}.sentinel-console #router-workbench{padding-inline:12px}.sentinel-hero-actions{align-items:center}.sentinel-hero-actions button{width:100%;max-width:330px}}
+@media(max-width:420px){.sentinel-subsystems{grid-template-columns:1fr}.sentinel-production-hero h1{font-size:48px}}
