@@ -118,13 +118,13 @@ function Spectrum() {
 }
 
 export default function SentinelLandingExperience(){
-  const reduced=useReducedMotion();const [intro,setIntro]=useState(true);const [entered,setEntered]=useState(false);
+  const reduced=useReducedMotion();const [intro,setIntro]=useState(true);const [entered,setEntered]=useState(false);const [menuOpen,setMenuOpen]=useState(false);
   useEffect(()=>{if(reduced){setIntro(false);setEntered(true);return;}const a=window.setTimeout(()=>setEntered(true),220);const b=window.setTimeout(()=>setIntro(false),2050);return()=>{clearTimeout(a);clearTimeout(b);};},[reduced]);
   useEffect(()=>{const nodes=[...document.querySelectorAll<HTMLElement>('[data-sentinel-reveal]')];if(reduced){nodes.forEach(n=>n.classList.add('is-visible'));return;}const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target);}}),{threshold:.16,rootMargin:'0px 0px -8% 0px'});nodes.forEach(n=>io.observe(n));return()=>io.disconnect();},[reduced]);
   const headline='Intelligence after impact.';
   return <div className="sentinel-landing">
     {!reduced&&<div className={`sentinel-intro ${entered?'sentinel-intro-out':''} ${!intro?'sentinel-intro-hidden':''}`} aria-hidden="true"><span>signals become understanding.</span></div>}
-    <nav className="sentinel-nav"><a href="#sentinel-home" className="sentinel-wordmark">QNX <i>Sentinel</i></a><div><a href="#sentinel-engines">SYSTEMS</a><a href="#sentinel-spectrum">SIGNAL</a><a href="#sentinel-faq">FAQ</a><a href="#sentinel-workbench">WORKBENCH ↘</a></div></nav>
+    <nav className="sentinel-nav"><a href="#sentinel-home" className="sentinel-wordmark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h8v8H3zM13 13h8v8h-8zM13 3h8v8h-8zM3 13h8v8H3z" fill="none" stroke="currentColor" strokeWidth="1.5"/></svg> QNX <i>Sentinel</i></a><div className={menuOpen?"sentinel-nav-links is-open":"sentinel-nav-links"}><a onClick={()=>setMenuOpen(false)} href="#sentinel-engines">SYSTEMS</a><a onClick={()=>setMenuOpen(false)} href="#sentinel-spectrum">SIGNAL</a><a onClick={()=>setMenuOpen(false)} href="#sentinel-event-stream">EVENT STREAM</a><a onClick={()=>setMenuOpen(false)} href="#sentinel-faq">FAQ</a></div><a className="sentinel-demo-cta" href="#sentinel-workbench">BOOK A DEMO ↗</a><button className="sentinel-menu-toggle" aria-label="Toggle navigation menu" aria-expanded={menuOpen} onClick={()=>setMenuOpen(!menuOpen)}><span/><span/></button></nav>
     <section id="sentinel-home" className="sentinel-hero">
       <RibbonCanvas/><div className="sentinel-hero-veil"/>
       <div className="sentinel-hero-inner">
@@ -144,12 +144,33 @@ export default function SentinelLandingExperience(){
       <Spectrum/>
     </section>
     <section className="sentinel-band" data-sentinel-reveal>
-      <div className="sentinel-band-head"><div className="sentinel-eyebrow">03 · CAPABILITY</div><div className="sentinel-rule"/></div>
+      <div className="sentinel-band-head"><div className="sentinel-eyebrow">05 · CAPABILITY</div><div className="sentinel-rule"/></div>
       <div className="sentinel-band-intro"><h2>Designed for<br/>the whole signal path.</h2><p>Core capabilities spanning edge-first routing, multilingual diagnostics, evidence integrity and embedded-system context.</p></div>
       <div className="sentinel-stats"><div><strong><em>12</em>+</strong><span>LANGUAGE ROUTING</span></div><div><strong><em>2</em></strong><span>STAGE HYBRID AI PATH</span></div><div><strong><em>256</em></strong><span>BIT HASH-CHAIN INTEGRITY</span></div><div><strong><em>QNX</em></strong><span>NEUTRINO TARGET</span></div></div>
     </section>
+
+    <section id="sentinel-event-stream" className="sentinel-band sentinel-event-section" data-sentinel-reveal>
+      <div className="sentinel-band-head"><div className="sentinel-eyebrow">03 · EVENT STREAM</div><div className="sentinel-rule"/></div>
+      <div className="sentinel-band-intro"><h2>Follow every<br/>event to its source.</h2><p>A trace-oriented view of the investigation timeline. Select spans, inspect timing and follow relationships between telemetry events.</p></div>
+      <div className="sentinel-event-card"><div className="sentinel-event-top"><div><span className="sentinel-data-label">TRACE ID</span><strong className="sentinel-mono">trc_8f21a9c0d74e</strong></div><div className="sentinel-chip-row"><span className="sentinel-chip"><i className="pass"/>TRACE COMPLETE</span><span className="sentinel-chip">1.5H WINDOW</span></div></div>
+      <div className="sentinel-event-body"><aside className="sentinel-event-sidebar"><span className="sentinel-data-label">EVENT IDS · 06</span><div className="sentinel-event-item"><i className="pass"/><span><b>evt_001</b><small>Telemetry ingest</small></span></div><div className="sentinel-event-item"><i className="pass"/><span><b>evt_002</b><small>PII sanitization</small></span></div><div className="sentinel-event-item"><i className="pass"/><span><b>evt_003</b><small>Edge inference</small></span></div><div className="sentinel-event-selected"><i className="focus"/><span><b>evt_004</b><small>Cloud consensus</small></span></div><div className="sentinel-event-item"><i className="pass"/><span><b>evt_005</b><small>Evidence seal</small></span></div><div className="sentinel-event-item"><i className="warn"/><span><b>evt_006</b><small>Case resolution</small></span></div></aside>
+      <div className="sentinel-event-table"><div className="sentinel-event-row sentinel-event-heading"><span>SPAN</span><span>START · RELATIVE TIMELINE</span><span>DURATION</span></div>
+      <div className="sentinel-event-row"><span className="sentinel-span-name">Telemetry ingest</span><div className="sentinel-timeline"><i style={{left:"4%",width:"9%"}}/></div><span className="sentinel-duration">8m</span></div>
+      <div className="sentinel-event-row"><span className="sentinel-span-name">PII sanitization</span><div className="sentinel-timeline"><i style={{left:"13%",width:"5%"}}/></div><span className="sentinel-duration">4m</span></div>
+      <div className="sentinel-event-row"><span className="sentinel-span-name">Edge inference</span><div className="sentinel-timeline"><i style={{left:"20%",width:"21%"}}/></div><span className="sentinel-duration">19m</span></div>
+      <div className="sentinel-event-row is-focus"><span className="sentinel-span-name">Cloud consensus</span><div className="sentinel-timeline"><i style={{left:"38%",width:"13%"}}/></div><span className="sentinel-duration">11m</span></div>
+      <div className="sentinel-event-row"><span className="sentinel-span-name">Evidence seal</span><div className="sentinel-timeline"><i style={{left:"54%",width:"4%"}}/></div><span className="sentinel-duration">2m</span></div>
+      <div className="sentinel-event-row"><span className="sentinel-span-name">Case resolution</span><div className="sentinel-timeline"><i style={{left:"62%",width:"7%"}}/></div><span className="sentinel-duration">6m</span></div></div></div><div className="sentinel-event-foot"><span>SYNTHETIC TRACE PREVIEW · REPRESENTATIVE DATA</span><span>HASH-CHAIN VERIFIED <b>✓</b></span></div></div>
+    </section>
+    <section className="sentinel-band sentinel-bento-section" data-sentinel-reveal><div className="sentinel-band-head"><div className="sentinel-eyebrow">04 · FORENSIC TOOLKIT</div><div className="sentinel-rule"/></div><div className="sentinel-band-intro"><h2>From anomaly<br/>to explanation.</h2><p>Regression signals, failure patterns and version changes in one forensic workflow.</p></div>
+      <div className="sentinel-bento-grid">
+      <article className="sentinel-bento-card"><div className="sentinel-bento-head"><span>01 / REGRESSION</span><span className="sentinel-chip"><i className="pass"/>3 PASS · 1 FAIL</span></div><h3>Regression signals</h3><p>Compare the current run against a known baseline.</p><div className="sentinel-regression-rows"><div><span>Boot sequence</span><em>PASS</em><b>−12.4%</b></div><div><span>Memory pressure</span><em>PASS</em><b>−4.8%</b></div><div><span>Interrupt latency</span><em className="fail">FAIL</em><b>+18.2%</b></div><div><span>Packet loss</span><em>PASS</em><b>−2.1%</b></div></div></article>
+      <article className="sentinel-bento-card"><div className="sentinel-bento-head"><span>02 / CLUSTERING</span><span className="sentinel-chip">4 CLUSTERS</span></div><h3>Failure clustering</h3><p>Group correlated error signatures by observed frequency.</p><div className="sentinel-clusters"><div><span>Timeout</span><i><b style={{width:"42%"}}/></i><strong>42%</strong></div><div><span>Memory</span><i><b style={{width:"28%"}}/></i><strong>28%</strong></div><div><span>I/O fault</span><i><b style={{width:"19%"}}/></i><strong>19%</strong></div><div><span>Other</span><i><b style={{width:"11%"}}/></i><strong>11%</strong></div></div></article>
+      <article className="sentinel-bento-card"><div className="sentinel-bento-head"><span>03 / VERSION REPLAY</span><span className="sentinel-chip">DIFF VIEW</span></div><h3>Version replay</h3><p>Inspect changes associated with a fault transition.</p><div className="sentinel-code-diff"><div><i>−</i><code>watchdog_timeout = 80</code></div><div className="added"><i>+</i><code>watchdog_timeout = 120</code></div><div className="modified"><i>~</i><code>retry_policy = adaptive</code></div><div><i> </i><code>capture_trace(signal)</code></div></div></article>
+      </div>
+    </section>
     <section id="sentinel-faq" className="sentinel-band" data-sentinel-reveal>
-      <div className="sentinel-band-head"><div className="sentinel-eyebrow">04 · QUESTIONS</div><div className="sentinel-rule"/></div>
+      <div className="sentinel-band-head"><div className="sentinel-eyebrow">06 · QUESTIONS</div><div className="sentinel-rule"/></div>
       <div className="sentinel-band-intro"><h2>Clarity at every<br/>layer of the system.</h2><p>What the workbench does, where it runs and how its evidence is handled.</p></div>
       <div className="sentinel-faq">
         <details><summary>What is QNX Sentinel?<b/></summary><p>A hybrid AI post-mortem telemetry and forensics workbench for inspecting embedded-system diagnostic data and building traceable investigation records.</p></details>
