@@ -16,9 +16,13 @@ export default function TubesAmbientBackground() {
     const init = async () => {
       try {
         // Load the same lightweight cursor-tubes build used by the reference.
+        const moduleUrl =
+          'https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js';
+        // Keep the URL dynamic so TypeScript does not try to resolve a remote
+        // URL as a local package during the production build.
         const tubesModule = await import(
-          /* webpackIgnore: true */ 'https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js'
-        );
+          /* webpackIgnore: true */ moduleUrl
+        ) as { default: (canvas: HTMLCanvasElement, options: unknown) => any };
         if (!mounted) return;
 
         const TubesCursor = tubesModule.default;
