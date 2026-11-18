@@ -87,7 +87,8 @@ export default function SentinelConsole() {
     nanoDownloadPct, setNanoDownloadPct, setRemoteConfigSource,
     selectedLocale, setSelectedLocale, rawTelemetryInput, setRawTelemetryInput,
     routingDecision, setRoutingDecision, consensusResult, setConsensusResult,
-    isTriaging, setIsTriaging } = runtime;
+    isTriaging, setIsTriaging, preferOnDeviceCount, setPreferOnDeviceCount,
+    preferInCloudCount, setPreferInCloudCount } = runtime;
 
   // Feature 4: SHA-256 Hash-Chained Black-Box Flight Recorder (Starts empty — no pre-seeded fake blocks)
   const [blackBoxChain, setBlackBoxChain] = useState<BlackBoxBlock[]>([]);
