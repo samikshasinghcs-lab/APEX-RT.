@@ -172,9 +172,9 @@ export default function SentinelConsole() {
           extractedTempC: null,
           extractedIsolationKOhm: null,
           summary:
-            '[SAMPLE DATA / NOT YET EXECUTED] Click "Execute firebase/ai Triage & Audit" to run Stage 1 model triage and Stage 2 Cloud Gemini audit.',
+            'Run triage to generate Stage 1 findings.',
           transparencyNote:
-            'No LLM call has executed yet. Deterministic regex baseline is shown separately on the left.',
+            'Model analysis has not started. The deterministic safety check is available in the baseline panel.',
           errorMessage: null,
         },
         cloudAudit: {
@@ -189,14 +189,14 @@ export default function SentinelConsole() {
           extractedIsolationKOhm: null,
           localizedRemediation: null,
           auditNotes:
-            '[SAMPLE DATA / NOT YET EXECUTED] Stage 2 Cloud Gemini audit (gemini-2.5-flash) will execute when triggered.',
+            'Run triage to generate the Stage 2 cloud audit.',
           errorMessage: null,
         },
         consensusScore: null,
         status: 'NOT_RUN_YET',
         discrepancies: [],
         finalSeverity: initialDecision.safetyCheck.severity,
-        finalRemediation: `[Deterministic Pre-Check Baseline — SAMPLE DATA] ${buildLocalizedRemediation(
+        finalRemediation: `Deterministic safety-check baseline: ${buildLocalizedRemediation(
           'en',
           initialDecision.safetyCheck
         )}`,
@@ -1195,8 +1195,8 @@ export default function SentinelConsole() {
                       Stage 1 inferenceSource:
                     </span>
                     <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-cyan-400 font-semibold">
-                      {consensusResult.edgeTriage.inferenceSourceBadge} (
-                      {consensusResult.edgeTriage.actualSource})
+                      {consensusResult.edgeTriage.inferenceSourceBadge === 'NONE' ? 'Pending' : consensusResult.edgeTriage.inferenceSourceBadge} (
+                      {consensusResult.edgeTriage.actualSource === 'MODEL_UNAVAILABLE' ? 'Not started' : consensusResult.edgeTriage.actualSource})
                     </span>
                   </div>
                   <div className="flex flex-wrap items-center justify-between gap-2">
@@ -1204,8 +1204,8 @@ export default function SentinelConsole() {
                       Stage 2 inferenceSource:
                     </span>
                     <span className="px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-amber-400 font-semibold">
-                      {consensusResult.cloudAudit.inferenceSourceBadge} (
-                      {consensusResult.cloudAudit.actualSource})
+                      {consensusResult.cloudAudit.inferenceSourceBadge === 'NONE' ? 'Pending' : consensusResult.cloudAudit.inferenceSourceBadge} (
+                      {consensusResult.cloudAudit.actualSource === 'MODEL_UNAVAILABLE' ? 'Not started' : consensusResult.cloudAudit.actualSource})
                     </span>
                   </div>
                   <p className="text-[11px] text-slate-400 font-sans pt-1">
@@ -1269,7 +1269,7 @@ export default function SentinelConsole() {
                     <div className="text-lg font-mono font-bold text-cyan-400 tabular-nums mt-1">
                       {consensusResult.edgeTriage.ttftMs !== null
                         ? `${consensusResult.edgeTriage.ttftMs.toFixed(1)} ms`
-                        : 'N/A (No LLM)'}
+                        : '—'}
                     </div>
                   </div>
 
