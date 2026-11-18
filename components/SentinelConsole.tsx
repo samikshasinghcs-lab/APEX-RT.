@@ -453,7 +453,6 @@ export default function SentinelConsole() {
 
   return (
     <div className="sentinel-console min-h-screen bg-[#050507] text-slate-100 flex flex-col relative">
-      <video className="sentinel-observe-video" src="https://designerstephen.github.io/public-assets/videos/observe-hero.mp4" muted autoPlay loop playsInline preload="auto" aria-hidden="true" />
       <TravellingDebugCable />
 
       {/* Layer 3: Semantic DOM Workbench Layer (relative z-10) */}
