@@ -100,7 +100,7 @@ export function UsbBridge() {
         <button className="sentinel-usb-connector" type="button" onClick={() => { setProgress(0); setConnected(v => !v); }} aria-label={connected ? 'Disconnect USB-C connector' : 'Connect USB-C connector'}>
           <span className="sentinel-usb-tip" /><span className="sentinel-usb-cable" />
         </button>
-        <div className="sentinel-port-socket"><span /></div>
+        <div id="sentinel-usb-socket" className="sentinel-port-socket" aria-label="USB-C target socket"><span /></div>
         <div className="sentinel-signal-trace"><i style={{ transform: `scaleX(${progress / 3})` }} /></div>
         <div className="sentinel-register-grid">
           <div><small>INTERFACE</small><strong>{connected ? 'USB-C / QNX' : 'STANDBY'}</strong></div>
@@ -116,28 +116,96 @@ export function UsbBridge() {
 
 export function TravellingDebugCable() {
   const ref = useRef<SVGSVGElement>(null);
+  const [dragging, setDragging] = useState(false);
+  const [plugged, setPlugged] = useState(false);
+  const position = useRef({ x: 28, y: Math.round(typeof window === 'undefined' ? 240 : window.innerHeight * .36) });
+  const pointer = useRef({ id: -1, x: 0, y: 0 });
+  const raf = useRef(0);
+
+  const paint = (x: number, y: number) => {
+    position.current = { x, y };
+    if (ref.current) {
+      ref.current.style.left = `${x}px`;
+      ref.current.style.top = `${y}px`;
+      ref.current.style.transform = 'none';
+    }
+  };
+
+  const onPointerDown = (event: React.PointerEvent<SVGSVGElement>) => {
+    if (plugged) return;
+    event.preventDefault();
+    event.currentTarget.setPointerCapture(event.pointerId);
+    pointer.current = { id: event.pointerId, x: event.clientX, y: event.clientY };
+    setDragging(true);
+    event.currentTarget.classList.add('is-dragging');
+  };
+
+  const onPointerMove = (event: React.PointerEvent<SVGSVGElement>) => {
+    if (!dragging || pointer.current.id !== event.pointerId) return;
+    event.preventDefault();
+    const dx = event.clientX - pointer.current.x;
+    const dy = event.clientY - pointer.current.y;
+    pointer.current = { ...pointer.current, x: event.clientX, y: event.clientY };
+    const nextX = Math.max(-130, Math.min(window.innerWidth - 40, position.current.x + dx));
+    const nextY = Math.max(8, Math.min(window.innerHeight - 50, position.current.y + dy));
+    paint(nextX, nextY);
+    // Pulling the lead physically scrolls the workbench along with it.
+    if (Math.abs(dy) > 0) window.scrollBy({ top: dy * 1.15, behavior: 'instant' as ScrollBehavior });
+  };
+
+  const onPointerUp = (event: React.PointerEvent<SVGSVGElement>) => {
+    if (pointer.current.id !== event.pointerId) return;
+    pointer.current.id = -1;
+    setDragging(false);
+    event.currentTarget.classList.remove('is-dragging');
+    const socket = document.getElementById('sentinel-usb-socket');
+    const bounds = socket?.getBoundingClientRect();
+    const plugX = position.current.x + 178;
+    const plugY = position.current.y + 21;
+    const hit = !!bounds && plugX >= bounds.left - 26 && plugX <= bounds.right + 26 && plugY >= bounds.top - 26 && plugY <= bounds.bottom + 26;
+    if (hit && bounds) {
+      const targetX = bounds.right - 180;
+      const targetY = bounds.top + bounds.height / 2 - 21;
+      paint(targetX, targetY);
+      setPlugged(true);
+      window.dispatchEvent(new Event('sentinel-usb-connect'));
+    } else {
+      // Keep the cable where it was released so the user can try again.
+      paint(position.current.x, position.current.y);
+    }
+  };
+
+  const resetCable = () => {
+    setPlugged(false);
+    paint(28, Math.max(80, window.innerHeight * .36));
+    window.dispatchEvent(new Event('sentinel-usb-disconnect'));
+  };
+
   useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced) return;
-    let raf = 0;
-    const update = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-        const p = Math.min(1, Math.max(0, window.scrollY / max));
-        if (ref.current) {
-          ref.current.style.transform = `translate3d(${12 + p * 68}vw,${p * 72}vh,0) rotate(${-18 + p * 205}deg)`;
-          ref.current.style.opacity = String(p > .92 ? 0 : .72);
-        }
-      });
-    };
-    window.addEventListener('scroll', update, { passive: true }); update();
-    return () => { cancelAnimationFrame(raf); window.removeEventListener('scroll', update); };
+    paint(28, Math.max(80, window.innerHeight * .36));
   }, []);
-  return <svg ref={ref} className="sentinel-travelling-cable" viewBox="0 0 180 42" aria-hidden="true" onClick={() => window.dispatchEvent(new Event("sentinel-usb-connect"))} style={{ pointerEvents: "auto", cursor: "pointer" }}>
-    <path d="M8 21 C35 3 60 39 88 21 S140 3 160 21" fill="none" stroke="#6366F1" strokeWidth="7" strokeLinecap="round"/>
-    <path d="M8 21 C35 3 60 39 88 21 S140 3 160 21" fill="none" stroke="#52A8FF" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 5"/>
-    <rect x="151" y="10" width="24" height="22" rx="3" fill="#B8C4D8" stroke="#52A8FF"/>
-    <rect x="172" y="15" width="7" height="12" rx="1" fill="#E5E7EB"/>
-  </svg>;
+
+  return <>
+    <div className={`sentinel-cable-hint ${dragging ? 'is-active' : ''} ${plugged ? 'is-done' : ''}`} aria-live="polite">
+      {plugged ? 'TARGET LINK CONNECTED' : dragging ? 'PULL THE LEAD · SCROLL TO TARGET' : 'GRAB THE USB-C PLUG · DRAG TO SCROLL'}
+    </div>
+    <svg
+      ref={ref}
+      className={`sentinel-travelling-cable ${dragging ? 'is-dragging' : ''} ${plugged ? 'is-plugged' : ''}`}
+      viewBox="0 0 180 42"
+      role="img"
+      aria-label="Draggable USB-C cable. Drag it down the page and drop the connector into the target socket."
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerUp}
+      style={{ left: 28, top: '36vh', pointerEvents: plugged ? 'none' : 'auto', touchAction: 'none', cursor: dragging ? 'grabbing' : 'grab' }}
+    >
+      <path d="M8 21 C35 3 60 39 88 21 S140 3 160 21" fill="none" stroke="#fff" strokeWidth="7" strokeLinecap="round"/>
+      <path d="M8 21 C35 3 60 39 88 21 S140 3 160 21" fill="none" stroke="#777" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 5"/>
+      <rect x="151" y="10" width="24" height="22" rx="3" fill="#b8b8b8" stroke="#fff"/>
+      <rect x="172" y="15" width="7" height="12" rx="1" fill="#fff"/>
+    </svg>
+    {plugged && <button type="button" className="sentinel-cable-reset" onClick={resetCable}>UNPLUG ↺</button>}
+  </>;
 }
