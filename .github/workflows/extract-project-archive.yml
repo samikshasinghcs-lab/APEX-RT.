@@ -1,0 +1,56 @@
+name: Extract uploaded project archive
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/extract-project-archive.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract project while preserving the greeting
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from zipfile import ZipFile
+          import os
+
+          archive = Path("untitled (9).zip")
+          if not archive.is_file():
+              raise SystemExit("Expected untitled (9).zip at repository root")
+
+          with ZipFile(archive) as z:
+              for info in z.infolist():
+                  name = info.filename.replace("\\", "/")
+                  if name.startswith("/") or any(part == ".." for part in name.split("/")):
+                      raise SystemExit(f"Unsafe archive path: {info.filename}")
+              z.extractall(".")
+
+          archived_readme = Path("README.md")
+          # Keep the existing greeting as the first line; place the project's README after it.
+          project_readme = archived_readme.read_text(encoding="utf-8") if archived_readme.exists() else ""
+          greeting = "HIIIII :D"
+          if not project_readme.startswith(greeting):
+              archived_readme.write_text(greeting + "\n\n" + project_readme, encoding="utf-8")
+          PY
+
+      - name: Commit extracted project files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Extract QNX Sentinel project files"
+            git push
+          fi
