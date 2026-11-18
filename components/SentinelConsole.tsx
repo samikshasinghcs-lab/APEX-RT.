@@ -118,7 +118,7 @@ export default function SentinelConsole() {
         setActiveView(nextView);
       }
     },
-    [false, 0]
+    []
   );
 
   const appendBlockToChain = useCallback(
