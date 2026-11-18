@@ -370,3 +370,13 @@ body{background:var(--qnx-void)!important;color:#f4f4f5!important;font-family:va
 .sentinel-console #router-workbench .sentinel-locale-selector button:hover{border-color:#52A8FF!important}
 @media(max-width:1150px){.sentinel-production-nav nav{display:none!important}.sentinel-nav-status{max-width:58vw}}
 @media(max-width:760px){.sentinel-nav-status{max-width:52vw}.sentinel-status-chip{font-size:8px;padding:6px 8px}.sentinel-diagnostics-toggle{font-size:8px;padding:6px 8px}}
+
+
+.sentinel-trace-stream{margin:0 0 26px;padding:16px 18px;background:#0F0F12;border:1px solid var(--qnx-line)}
+.sentinel-trace-heading{display:flex;justify-content:space-between;gap:12px;color:#8b8b96;font:9px var(--font-mono),monospace;letter-spacing:.12em;padding-bottom:12px;border-bottom:1px solid var(--qnx-line)}
+.sentinel-trace-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding-top:14px}
+.sentinel-trace-grid>div{display:flex;flex-direction:column;gap:7px;min-width:0}
+.sentinel-trace-grid small,.sentinel-trace-grid em{font:9px var(--font-mono),monospace;color:#777782;font-style:normal;overflow-wrap:anywhere}
+.sentinel-trace-grid strong{font:600 11px var(--font-mono),monospace;color:#e4e4e7}
+.sentinel-trace-grid i{display:block;height:3px;background:linear-gradient(90deg,#52A8FF,#6366F1);box-shadow:0 0 9px #52a8ff55}
+@media(max-width:760px){.sentinel-trace-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
